@@ -1,0 +1,39 @@
+{
+  "name": "Full_Stack_JS_first_task",
+  "version": "1.0.0",
+  "description": "[Link on netlify to see my project](https://condescending-bohr-3b4b99.netlify.com/)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vitali177/Order_Task_ItechArt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vitali177/Order_Task_ItechArt/issues"
+  },
+  "homepage": "https://github.com/Vitali177/Order_Task_ItechArt#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.1.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env"
+    ]
+  },
+  "dependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4"
+  }
+}

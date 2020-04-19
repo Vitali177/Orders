@@ -1,0 +1,26 @@
+* {
+  --first-gradient-color: #aac3e2;
+  --second-gradient-color: #e6ebef;
+
+  --primary-gray: #afadad;
+  --secondary-gray: #e3e5e7;
+
+  --primary-blue: #397cb3;
+  --secondary-blue: #cadeef;
+
+  --primary-light-blue: #e7f0f8;
+  --primary-light-gray: #fafafa;
+  --primary-light-black: #5d5b5b;
+
+  --primary-white: #FFFFFF;
+  --primary-orange: #f1a516;
+  --primary-red: #f5471c;
+  --primary-green: #06cb20;
+
+  --footer-color: #2f3b47;
+
+  --order-list-width: 255px;
+
+  --header-height: 30px;
+  --footer-height: 30px;
+}

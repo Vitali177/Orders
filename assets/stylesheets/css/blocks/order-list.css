@@ -1,0 +1,234 @@
+.order-list {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: calc( 0px - var(--order-list-width) );
+  min-height: 100vh;
+  width: var(--order-list-width);
+  background-color: var(--primary-white);
+  box-shadow: -5px 0px 10px var(--primary-gray); 
+  transition: transform .4s ease-in-out;
+}
+
+.order-list--hidden {
+  display: none;
+}
+
+.order-list__header {
+  min-height: 80px;
+  border-bottom: 1px solid var(--primary-gray);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.order-list__form {
+  position: relative; /* for order-list__button-search */
+}
+
+.order-list__button-search, .order-list__button-refresh {
+  position: absolute;
+  top: 0;    
+  height: 100%;
+  width: 20px;
+  cursor: pointer;
+}
+
+.order-list__button-search {
+  right: 35px;
+  background: url("../../../img/search.png") center center no-repeat no-repeat;
+  background-size: 75%;
+}
+
+.order-list__button-search input {
+  width: 100%;
+  height: 100%;
+  background: initial;
+  border: 0;
+  cursor: pointer;
+}
+
+.order-list__button-refresh {
+  right: 10px;
+  background: url("../../../img/refresh.png") center center no-repeat no-repeat;
+  background-size: 75%;
+}
+
+.order-list__input-search {
+  padding: 0 50px 0 10px;
+  border: 1px solid var(--primary-gray);  
+}
+
+.order-list__input-search:hover {
+  border: 1px solid var(--primary-blue);
+}
+
+.no-orders {
+  padding: 10px 0 0 10px;
+}
+
+/* header of order-list */
+
+.order-list__header-row {
+  display: flex;
+  justify-content: center;
+  position: relative; /* for order-list__button-back */
+}
+
+.order-list__button-back {
+  position: absolute;
+  left: 10px;
+  width: 20px;
+  height: 25px;
+  border: 0;
+  background: url("../../../img/left-arrow.png") center center no-repeat no-repeat;
+  background-size: 75%;
+  cursor: pointer;
+}
+
+.order-list__input-search {
+  height: 25px;
+  width: 95%;
+  margin-left: 2.5%;
+}
+
+.order-list__main {
+  height: calc(100vh - 85px); /* minus order-list__header and order-list__footer */
+  width: 100%;
+  border-right: 1px solid var(--primary-white);
+  overflow: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.order-list__item {
+  min-height: 95px;
+  padding: 0 10px;
+  border-bottom: 1px solid var(--primary-gray);
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;  
+}
+
+.order-list__item:hover {
+  background-color: var(--secondary-gray);
+}
+
+.order-list__item--selected {
+  background-color: var(--primary-light-blue);
+}
+
+.order-list__item-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-list__item-ordered-date {
+  font-size: 15px;
+}
+
+.order-list__item-order {
+  max-height: 40px;
+  font-size: 17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: normal;
+}
+
+.order-list__item-customer, .order-list__item-shipped {
+  font-size: 12px;
+  color: var(--primary-light-black);
+}
+
+.order-list__item-order, .order-list__item-order-time, .order-list__item-customer, .order-list__item-shipped {
+  font-weight: 300;
+}
+
+.order-list__item-order-time--in-time {
+  color: var(--primary-green);
+}
+
+.order-list__item-order-time--urgent {
+  color: var(--primary-orange);
+}
+
+.order-list__item-order-time--too-late {
+  color: var(--primary-red);
+}
+
+/* footer of order-list */
+
+.order-list__footer {
+  position: fixed;
+  bottom: 0;
+  width: var(--order-list-width);
+  height: 30px;
+  background: var(--footer-color);
+  border-right: 1px solid var(--primary-white);
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+.order-list__footer-button-create-order {
+  width: 30px;
+  height: 30px;
+  background: url("../../../img/create-order.png") center center no-repeat no-repeat;
+  background-size: 50%;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1075px) {
+  
+  .order-list {
+    left: 0;
+  }  
+
+  .order-list--hidden {
+    display: block;
+    transform: translateX(-255px);
+  }
+}
+
+@media screen and (max-width: 580px) {
+
+  .order-list {
+    width: 100%;
+  }
+
+  .order-list--hidden {
+    transform: translateX(-100%);
+  }
+
+  .order-list__item {
+    padding: 0 20px;
+  }
+
+  .order-list__item-order {
+    font-size: 21px;
+  }
+
+  .order-list__item-ordered-date {
+    font-size: 17px;
+  }
+
+  .order-list__item-order-time, .order-list__item-customer, .order-list__item-shipped {
+    font-size: 14px;
+  }
+  
+  .order-list__form .order-list__button-refresh {
+    right: 7px;
+  }
+
+  .order-list__form .order-list__button-search {
+    right: 30px;
+  }
+
+  .order-list__footer {
+    width: 100%;
+  }
+}

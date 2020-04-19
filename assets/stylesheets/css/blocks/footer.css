@@ -1,0 +1,39 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: var(--footer-height);
+  width: calc(100% - var(--order-list-width));
+  max-width: calc(1300px - var(--order-list-width));
+  background: var(--footer-color);
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;  
+}
+
+.footer__delete-order {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.footer__delete-order p {
+  font-size: 13px;
+  color: var(--primary-white);
+}
+
+.footer__button-delete-order {
+  height: 30px;
+  width: 30px;
+  background: url("../../../img/delete-order.png") center center no-repeat no-repeat;
+  background-size: 60%;
+}
+
+@media(max-width: 1075px) {
+  
+  .footer {
+    width: 100%;
+    max-width: 1300px;
+  }
+}

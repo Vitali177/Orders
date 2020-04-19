@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+}
+
+body {
+  font-family: sans-serif, serif;
+  height: 100vh;
+  background: linear-gradient(var(--first-gradient-color), var(--second-gradient-color)); 
+}
+
+body.blocked {
+  overflow-y: hidden;
+}
+
+h3 {
+  font-weight: 200;
+}
+
+.content-wrapper {
+  position: relative;  /* for order-list */
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-left: var(--order-list-width); /* while order-list is open */
+  box-shadow: 5px 0px 10px var(--primary-gray); 
+  transition: opacity .4s ease-in-out;
+}
+
+.content-wrapper--menu-hidden {
+  padding-left: 0;
+}
+
+.content-wrapper--menu-hidden .header, .content-wrapper--menu-hidden .footer {
+  width: 100%;
+  max-width: 1300px;
+}
+
+.content-wrapper--blurred {
+  opacity: .1;
+}
+
+.wrapper-pop-up-form {
+  min-height: 100vh;
+  min-width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: auto;
+}
+
+.pop-up-form {
+  position: absolute;
+  z-index: 1; 
+  padding: 20px 20px;
+  background: var(--first-gradient-color);
+}
+
+.create-product-form {
+  width: 600px;
+  height: 315px;
+  left: calc((100% - 600px) / 2);
+  top: calc((100% - 315px) / 2);
+}
+
+.create-order-form {
+  width: 600px;
+  height: 725px;
+  left: calc((100% - 600px) / 2);
+  top: 0px;
+}
+
+.pop-up-form form {  
+  display: flex;
+  flex-direction: column;
+}
+
+.pop-up-form h3 {
+  font-size: 20px;
+  text-align: center;
+}
+
+.pop-up-form h4 {
+  padding-top: 10px;
+  font-weight: 300;
+}
+
+.pop-up-form input {
+  margin-top: 10px;
+  padding: 3px 10px;
+}
+
+.pop-up-form .cancel-button {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  right: 10px;
+  background: url("../../../img/close.png") center center no-repeat no-repeat;
+  background-size: 80%;
+  cursor: pointer;
+}
+
+.pop-up-form .cancel-button:hover {
+  background-color: var(--secondary-gray);
+}
+
+.pop-up-form input[type="submit"] {
+  height: 32px;
+  width: 120px;
+  padding: 0;
+  border: 0;
+  align-self: center;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.pop-up-form input[type="submit"]:hover {
+  border: 2px solid var(--primary-blue);
+}
+
+.preloader {
+  height: 100px;
+  background: url("../../../img/preloader.gif") center center no-repeat no-repeat;
+}
+
+@media(max-width: 1075px) {
+  
+  .content-wrapper {
+    padding: 0;
+  }
+}
+
+@media(max-width: 580px) {
+  
+  .pop-up-form {
+    width: 100%;
+    left: 0;
+  }
+}

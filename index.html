@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/stylesheets/css/variables/variables.css">
+    <link rel="stylesheet" href="assets/stylesheets/css/reset/mini_reset.css">
+    <link rel="stylesheet" href="assets/stylesheets/css/blocks/header.css">
+    <link rel="stylesheet" href="assets/stylesheets/css/blocks/order-list.css">
+    <link rel="stylesheet" href="assets/stylesheets/css/blocks/main-order.css">
+    <link rel="stylesheet" href="assets/stylesheets/css/blocks/footer.css">
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=611a1328-1344-4ccd-8e76-3d6b632071a9" type="text/javascript"></script>
+    <title>Orders</title>
+</head>
+<body>
+    <div class="content-wrapper">
+        <header class="header">
+            <button class="header__button"></button>
+            <h1>Order</h1>
+            <section class="order-list">
+                <div class="order-list__header">
+                    <div class="order-list__header-row">
+                        <button class="order-list__button-back"></button>
+                        <h3>Orders (<span>0</span>)</h3>
+                    </div>                    
+                    <form action="#" class="order-list__form">
+                        <input type="search" class="order-list__input-search" placeholder="Search">
+                        <div class="order-list__button-search">
+                            <input type="submit" value="">
+                        </div>
+                        <div class="order-list__button-refresh"></div>
+                    </form>
+                </div>
+                <div class="order-list__main">
+
+                </div>
+                <div class="order-list__footer">
+                    <div class="order-list__footer-button-create-order"></div>
+                </div>
+            </section>
+        </header>
+        <main class="order">
+            <section class="order__main-info">
+                <div class="wrapper">
+                    
+                </div>                            
+                <div class="order__buttons">
+                    <div class="order__button order__button-address order__button--selected"></div>
+                    <div class="order__button order__button-processor"></div>
+                    <div class="order__button order__button-map"></div>
+                </div>
+            </section>
+            <section class="order__address tab--selected">
+                
+            </section>
+            <section class="order__processor">
+                
+            </section>
+
+            <section class="order__map">
+
+            </section>
+            <section class="order__line-items">
+                <div class="order__line-items-header">
+                    <h4 class="order__line-items-heading">Line Items (<span></span>)</h4>
+                    <div class="form-wrapper">
+                        <form action="#" class="order__line-items-form">
+                            <input type="search" class="order__line-items-input-search" placeholder="Search">
+                            <div class="order-list__button-search">
+                                <input type="submit" value="">
+                            </div>
+                            <div class="order-list__button-refresh"></div>
+                        </form>
+                        <div class="order__line-items-button-create-product"></div>
+                    </div>                    
+                </div>                
+                <hr>
+                <ul class="order__line-list">
+                    <div class="order__line-list-row order__line-list-row--headline">
+                        <li class="product">Product<div class="sort-picture"></div></li>
+                        <li class="unit-price">Unit Price<div class="sort-picture"></div></li>
+                        <li class="quantity">Quantity<div class="sort-picture"></div></li>
+                        <li class="total">Total<div class="sort-picture"></div></li>
+                        <li class="delete-product"></li>
+                    </div>
+                    <div class="wrapper">
+                        
+                    </div>                    
+                </ul>
+            </section>
+        </main>
+        <footer class="footer">
+            <div class="footer__delete-order">
+                <div class="footer__button-delete-order"></div>
+                <p>Delete Order</p>
+            </div>            
+        </footer>
+    </div>
+    <script src="./dist/main.js"></script>
+</body>
+</html>
