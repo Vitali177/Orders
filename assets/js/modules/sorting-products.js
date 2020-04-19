@@ -1,17 +1,23 @@
 import { searchProducts } from "./search-products";
+import { getMarkupOrderProduct } from "../html-markups/get-markup-order-product";
 
-export function sortingProducts(image, Orders) {
+export function sortingProducts(image) {
   const sectionOrderLineItems = document.querySelector("section.order__line-items .wrapper");
-  const products = [...document.querySelectorAll(".wrapper .order__line-list-row")];  
-  const alphabetSortCriterion = "product";
+  const alphabetSortCriterion = "name";
   const defaultDirection = "default";
   const directionASC = "ASC";
   const directionDESC = "DESC";
   let sortingDirection = null;
-  const sortingCriterion = image.parentNode.classList.value;
-
   const lastSortingImages = [...document.querySelectorAll(".sort-picture--DESC"),
     ...document.querySelectorAll(".sort-picture--ASC")];
+
+  const classSortingCriterion = image.parentNode.classList.value;
+  const classesSortingCriterion = ["product", "unit-price", "quantity", "total"];
+  const sortingCriterions = ["name", "price", "quantity", "totalPrice"];
+  const sortingCriterion = sortingCriterions[classesSortingCriterion.indexOf(classSortingCriterion)];
+
+  const id = document.querySelector("h3.order__name span").innerHTML;
+  const url = `http://localhost:3000/api/Orders/${id}/products`;
 
   lastSortingImages.forEach(lastImage => {  // show default state of other "active" images
     if (image !== lastImage) {
@@ -32,28 +38,34 @@ export function sortingProducts(image, Orders) {
     sortingDirection = directionASC;
   }
 
-  if (sortingDirection === defaultDirection) {    
-    searchProducts(document.querySelector(".order__line-items-input-search").value, Orders); // display columns by default
-    return;
-  }
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      const sortedProducts = data.sort((a, b) => {
+        const value1 = a[sortingCriterion];
+        const value2 = b[sortingCriterion];
 
-  const sortedProducts = products.sort((a, b) => {
-    const value1 = a.querySelector(`.${sortingCriterion} .value`).innerHTML;
-    const value2 = b.querySelector(`.${sortingCriterion} .value`).innerHTML;
+        if (sortingCriterion === alphabetSortCriterion) {
+          if (sortingDirection === directionDESC) {
+            if (value2 > value1) return 1;
+            return (value2 < value1) ? -1 : 0;
+          } else {
+            if (value1 > value2) return 1;
+            return (value1 < value2) ? -1 : 0;
+          } 
+        } else return (sortingDirection === directionDESC) ? (value1 - value2) : (value2 - value1);     
+      }); 
 
-    if (sortingCriterion === alphabetSortCriterion) {
-      if (sortingDirection === directionDESC) {
-        if (value2 > value1) return 1;
-        return (value2 < value1) ? -1 : 0;
+      let markup = "";
+
+      if (sortedProducts.length) {
+        sortedProducts.forEach((product) => {
+          markup += getMarkupOrderProduct(product);  
+        });
       } else {
-        if (value1 > value2) return 1;
-        return (value1 < value2) ? -1 : 0;
-      } 
-    } else return (sortingDirection === directionDESC) ? (value1 - value2) : (value2 - value1);     
-  }); 
-  
-  sectionOrderLineItems.innerHTML = "";
-  sortedProducts.forEach((element) => {
-    sectionOrderLineItems.appendChild(element);
-  });
+        markup = `<div class="no-products">Products not found</div>`;
+      }     
+
+      sectionOrderLineItems.innerHTML = markup;
+    });
 }

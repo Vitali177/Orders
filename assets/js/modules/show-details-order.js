@@ -19,8 +19,6 @@ export function showDetailsOrder(id) {
   fetch(url)
     .then(res => res.json())
     .then(data => {
-      console.log(data);
-
       sectionMainInfo.innerHTML = getMarkupOrderMainInfo(data);
       sectionOrderAddress.innerHTML = getMarkupOrderAddress(data);
       sectionOrderProcessor.innerHTML = getMarkupOrderCustomer(data);
@@ -31,12 +29,15 @@ export function showDetailsOrder(id) {
       fetch(urlProducts)
         .then(res => res.json())
         .then(data => {
-          console.log(data);
-
           let markup = "";
-          data.forEach((product) => {
-            markup += getMarkupOrderProduct(product);  
-          });
+
+          if (data.length) {
+            data.forEach((product) => {
+              markup += getMarkupOrderProduct(product);  
+            });
+          } else {
+            markup = `<div class="no-products">Products not found</div>`;
+          }          
 
           sectionOrderLineItems.innerHTML = markup;
           numberLineItems.innerHTML = data.length;

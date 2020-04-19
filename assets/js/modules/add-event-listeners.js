@@ -1,4 +1,3 @@
-import { Orders } from "../data/data";
 import { showDetailsOrder } from "./show-details-order";
 import { searchOrders } from "./search-orders";
 import { searchProducts } from "./search-products";
@@ -61,7 +60,7 @@ export function addEventListeners() {
         orderListItem = orderListItem.parentNode;
       }
 
-      createMarkupAllOrdersInList(Orders) // show all orders in menu
+      createMarkupAllOrdersInList() // show all orders in menu
         .then(() => {
           console.log("Then in event-listeners");
 
@@ -106,7 +105,7 @@ export function addEventListeners() {
 
   listOfProductsHeader.addEventListener("click", (e) => { //  event delegation  
     if (e.target.classList.contains("sort-picture")) {
-      sortingProducts(e.target, Orders);
+      sortingProducts(e.target);
     }
   });
 
