@@ -26,6 +26,10 @@ export async function createProduct() {
     const numberLineItems = document.querySelector(".order__line-items-heading span");
     const orderLineList = document.querySelector(".order__line-list .wrapper");
 
+    if (!orderLineList.length) { // clear "Products not found"
+      orderLineList.innerHTML = "";
+    }
+
     orderLineList.innerHTML += getMarkupOrderProduct(data);
     numberLineItems.innerHTML++;
   })  
