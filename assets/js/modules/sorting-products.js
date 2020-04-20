@@ -2,7 +2,7 @@ import { searchProducts } from "./search-products";
 import { getMarkupOrderProduct } from "../html-markups/get-markup-order-product";
 
 export function sortingProducts(image) {
-  const sectionOrderLineItems = document.querySelector("section.order__line-items .wrapper");
+  const orderLineList = document.querySelector("section.order__line-items .wrapper");
   const alphabetSortCriterion = "name";
   const defaultDirection = "default";
   const directionASC = "ASC";
@@ -18,6 +18,8 @@ export function sortingProducts(image) {
 
   const id = document.querySelector("h3.order__name span").innerHTML;
   const url = `http://localhost:3000/api/Orders/${id}/products`;
+
+  orderLineList.innerHTML = `<div class="preloader"></div>`;
 
   lastSortingImages.forEach(lastImage => {  // show default state of other "active" images
     if (image !== lastImage) {
@@ -41,7 +43,7 @@ export function sortingProducts(image) {
   fetch(url)
     .then(res => res.json())
     .then(data => {
-      const sortedProducts = data.sort((a, b) => {
+      return data.sort((a, b) => {
         const value1 = a[sortingCriterion];
         const value2 = b[sortingCriterion];
 
@@ -55,17 +57,24 @@ export function sortingProducts(image) {
           } 
         } else return (sortingDirection === directionDESC) ? (value1 - value2) : (value2 - value1);     
       }); 
+    })
+  .then(sortedProducts => {
+    let markup = "";
 
-      let markup = "";
+    if (sortedProducts.length) {
+      const searchText = document.querySelector(".order__line-items-input-search").value;
+      const matchesProducts = sortedProducts.filter(product => {
+        const regex = new RegExp(`^${searchText}`, "gi");
+        return `${product.id}`.match(regex) || product.name.match(regex) || `${product.price}`.match(regex) 
+          || `${product.quantity}`.match(regex) || `${product.totalPrice}`.match(regex);
+      });
 
-      if (sortedProducts.length) {
-        sortedProducts.forEach((product) => {
-          markup += getMarkupOrderProduct(product);  
-        });
-      } else {
-        markup = `<div class="no-products">Products not found</div>`;
-      }     
-
-      sectionOrderLineItems.innerHTML = markup;
-    });
+      matchesProducts.forEach((product) => {
+        markup += getMarkupOrderProduct(product);  
+      });
+    } else {
+      markup = `<div class="no-products">Products not found</div>`;
+    }    
+    orderLineList.innerHTML = markup;
+  })
 }
