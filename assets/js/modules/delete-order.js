@@ -1,4 +1,3 @@
-import { Orders } from "../data/data";
 import { showDetailsOrder } from "./show-details-order";
 
 export function deleteOrder() {
@@ -6,6 +5,9 @@ export function deleteOrder() {
   const selectedOrder = document.querySelector(".order-list__item--selected");
   const numberOfOrders = document.querySelector(".order-list__header-row h3 span");
   const indexSelectedOrder = 0;  // default selected order
+
+  const id = selectedOrder.id;
+  const url = `http://localhost:3000/api/Orders/${id}`;  
 
   if (selectedOrder) {
     orderListMain.removeChild(selectedOrder);
@@ -18,6 +20,6 @@ export function deleteOrder() {
       orderListMain.innerHTML = `<div class="no-orders">Orders not found</div>`;
     }
 
-    // ! Удалить на сервере
+    fetch(url, {method: "DELETE", mode: 'cors', cache: 'no-cache', credentials: 'same-origin'});
   }
 }
