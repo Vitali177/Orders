@@ -62,8 +62,6 @@ export function addEventListeners() {
 
       createMarkupAllOrdersInList() // show all orders in menu
         .then(() => {
-          console.log("Then in event-listeners");
-
           document.querySelector(`div[id="${orderListItem.id}"]`).classList.add("order-list__item--selected");
           history.pushState({}, document.title, window.location.pathname + "?id=" + orderListItem.id);
 

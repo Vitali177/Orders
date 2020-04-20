@@ -17,6 +17,5 @@ export async function createMarkupAllOrdersInList() {
     data.forEach(order => markup += getMarkupOrderInList(order));
 
     orderListMain.innerHTML = markup;
-    console.log("end");
   })();
 }

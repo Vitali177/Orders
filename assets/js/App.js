@@ -1,4 +1,3 @@
-import { Orders } from "./data/data";
 import { createMarkupAllOrdersInList } from "./modules/create-markup-all-orders-in-list";
 import { showDetailsOrder } from "./modules/show-details-order";
 import { addEventListeners } from "./modules/add-event-listeners";
@@ -14,7 +13,6 @@ function init() {
   displayPreloaders();
 
   createMarkupAllOrdersInList().then(() => {
-    console.log("then");
     if (document.querySelectorAll(".order-list__item").length) {
       if (urlId && document.querySelector(".order-list__item[id='" + urlId + "']")) {
         document.querySelector(".order-list__item[id='" + urlId + "']").classList.add("order-list__item--selected");
@@ -24,9 +22,7 @@ function init() {
         window.location.href = `${window.location.pathname}?id=${id}`;
       }
       showDetailsOrder(document.querySelector(".order-list__item--selected").id);
-    } else {  // if there are no orders, here it will be called processing function
-      
-    }  
+    }
     addEventListeners();  
   });
 }
