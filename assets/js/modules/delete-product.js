@@ -7,6 +7,8 @@ export function deleteProduct(button) {
     product = product.parentNode;
   }
 
+  const id = product.querySelector(".id").innerHTML;
+
   wrapperOfProducts.removeChild(product);
   numberOfProducts.innerHTML--;
 
@@ -15,5 +17,6 @@ export function deleteProduct(button) {
     wrapperOfProducts.innerHTML = `<div class="no-products">Products not found</div>`;
   }
 
-  // ! Удалить на сервере
+  const url = `http://localhost:3000/api/OrderProducts/${id}`;  
+  fetch(url, {method: "DELETE", mode: 'cors', cache: 'no-cache', credentials: 'same-origin'});
 }
