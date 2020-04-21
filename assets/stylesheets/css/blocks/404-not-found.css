@@ -1,0 +1,20 @@
+.not-found-404 {
+  padding-top: calc((100vh - 400px) / 2);
+} 
+
+.not-found-404 span {
+  color: var(--primary-white);
+}
+
+.not-found-404__numbers {
+  font-size: 250px;
+  text-align: center;
+  font-weight: 100;
+}
+
+.not-found-404__text {
+  font-size: 50px;
+  text-align: center;
+  font-weight: 100;
+  text-transform: uppercase;
+}

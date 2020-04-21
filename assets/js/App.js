@@ -3,6 +3,7 @@ import { showDetailsOrder } from "./modules/show-details-order";
 import { addEventListeners } from "./modules/add-event-listeners";
 import { setupApplicationUI } from "./modules/setup-application-UI";
 import { displayPreloaders } from "./modules/display-preloaders";
+import { getMarkup404NotFound } from "./html-markups/get-markup-404-not-found";
 
 window.addEventListener("DOMContentLoaded", init);
 
@@ -13,16 +14,13 @@ function init() {
   displayPreloaders();
 
   createMarkupAllOrdersInList().then(() => {
-    if (document.querySelectorAll(".order-list__item").length) {
-      if (urlId && document.querySelector(".order-list__item[id='" + urlId + "']")) {
-        document.querySelector(".order-list__item[id='" + urlId + "']").classList.add("order-list__item--selected");
-      } else {  // default selected first order
-        // ! 404 page not found
-        const id = document.querySelectorAll(".order-list__item")[0].id
-        window.location.href = `${window.location.pathname}?id=${id}`;
-      }
+    if (urlId && document.querySelector(".order-list__item[id='" + urlId + "']")) {
+      document.querySelector(".order-list__item[id='" + urlId + "']").classList.add("order-list__item--selected");
+      
       showDetailsOrder(document.querySelector(".order-list__item--selected").id);
+      addEventListeners();  
+    } else {
+      document.body.innerHTML = getMarkup404NotFound();
     }
-    addEventListeners();  
   });
 }
