@@ -45,9 +45,9 @@ export function showDetailsOrder(id) {
     });
 
   function displayMap() {
-    const country = document.querySelector(".order-input-country").value;
+    const region = document.querySelector(".order-input-region").value;
     const queryApi = 'https://api.opencagedata.com/geocode/v1/json?';
-    const accessKey = `q=${country}&key=ddc1c7bc04434a968ca2655d83467aee&pretty=1&no_annotations=1&language=en`;
+    const accessKey = `q=${region}&key=ddc1c7bc04434a968ca2655d83467aee&pretty=1&no_annotations=1&language=en`;
     const url = queryApi + accessKey;
 
     fetch(url)
