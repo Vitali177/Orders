@@ -119,7 +119,7 @@
 }
 
 .order-list__item--selected {
-  background-color: var(--primary-light-blue);
+  background-color: var(--secondary-blue);
 }
 
 .order-list__item-row {

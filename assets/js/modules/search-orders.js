@@ -4,6 +4,7 @@ export function searchOrders(searchText) {
   const numberOfOrders = document.querySelector(".order-list__header-row h3 span");
   const orderListMain = document.querySelector(".order-list__main");
   const orderMainCriteria = ["id", "summary", "shipTo", "customerInfo"];
+  const urlId = window.location.href.split("id=")[1];
   const url = "http://localhost:3000/api/Orders";
 
   orderListMain.innerHTML = `<div class="preloader"></div>`;
@@ -31,6 +32,10 @@ export function searchOrders(searchText) {
       if (matchesOrders.length) {
         const markup = matchesOrders.map(order => getMarkupOrderInList(order)).join("");
         orderListMain.innerHTML = markup;
+        // If there is selected order from search orders, then display it with backlight
+        if (document.querySelector(".order-list__item[id='" + urlId + "']")) {
+          document.querySelector(".order-list__item[id='" + urlId + "']").classList.add("order-list__item--selected");
+        }
       } else {
         orderListMain.innerHTML = `<div class="no-orders">Orders not found</div>`;
       }
