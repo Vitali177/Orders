@@ -1,5 +1,6 @@
 const sql = require("mssql");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
 
@@ -11,7 +12,13 @@ const dbConfig = {
   port: 1433
 };
 
+function handleError(err, res) {
+  console.log(err);
+  res.status(400).send("Error");
+}
+
 app.use(cors());
+app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
@@ -25,64 +32,67 @@ app.get("/dist/main.js", (req, res) => {
 app.get("/api/Orders", (req, res) => {
   sql.connect(dbConfig)
   .then(pool => {
-    pool.query(`select * from OrderInfo`, (err, recordset) => {
+    pool.query(`SELECT * from OrderInfo`, (err, recordset) => {
       if (err) {
         handleError(err, res);            
+      } else {
+        res.status(200).json(recordset["recordset"]);
       }
-      else {
-        res.status(200)
-          .type("application/json")
-          .send(JSON.stringify(recordset["recordset"]));
-      }
-    })
+    });
   });
-  // conn.connect(err => {
-  //   if (err) {
-  //     console.log(err);
-  //   }
-  //   console.log("Подключено");
-
-  //   let idProducts = [];
-
-  //   const req = new sql.Request(conn);
-  //   req.query(`select * from OrderInfo`, (err, recordset) => {
-  //     if (err) {
-  //       handleError(err, res);            
-  //     }
-  //     else {
-  //       console.log(recordset["recordset"][0]["idProducts"]);
-  //       idProducts = recordset["recordset"][0]["idProducts"];
-  //       console.log(2);
-        
-  //       res.type("application/json")
-  //         .status(200)
-  //         .json(recordset["recordset"]);
-  //     }
-  //     conn.close();
-  //   });
-    // const req2 = new sql.Request(conn);
-    // req2.query(`select * from ProductInfo where id IN (${idProducts.join("")})`, (err, recordset) => {
-    //   if (err) {
-    //     handleError(err, res);            
-    //   }
-    //   else {
-    //     console.log(recordset);
-        
-    //     // res.type("application/json")
-    //     //   .status(200)
-    //     //   .json(recordset["recordset"]);
-    //   }
-    //   conn.close();
-    // });
-  // });
 });
 
-app.post("/api/Orders", (req ,res) => {
-  res.status(200)
-          .json({a: 5});
-})
+// ! Надо посмотреть про маршрутизацию
+
+app.get("/api/Orders/:orderId", (req, res) => {
+  const { orderId } = req.params;
+  sql.connect(dbConfig)
+  .then(pool => {
+    pool.query(`SELECT * FROM OrderInfo WHERE orderId = ${orderId}`, (err, recordset) => {
+      if (err) {
+        handleError(err, res);            
+      } else {
+        res.status(200).json(recordset["recordset"]);
+      }
+    });
+  });
+});
+
+app.get("/api/Orders/:orderId/products", (req, res) => {
+  const { orderId } = req.params;
+  sql.connect(dbConfig)
+  .then(pool => {
+    pool.query(`SELECT * FROM ProductInfo WHERE orderId = ${orderId}`, (err, recordset) => {
+      if (err) {
+        handleError(err, res);            
+      } else {
+        res.status(200).json(recordset["recordset"]);
+      }
+    });
+  });
+});
+
+app.post("/api/Orders", (req, res) => {
+  const order = req.body;
+  const keys = Object.keys(order);
+  const values = Object.values(order).reduce((acc, val, index) => (index === 1) ? `'${acc}', '${val}'` : `${acc}, '${val}'`);
+
+  sql.connect(dbConfig)
+  .then(pool => {
+    pool.query(`INSERT INTO OrderInfo (${keys.join(", ")}) VALUES (${values})`, (err, recordset) => {
+      if (err) {
+        handleError(err, res);            
+      } else {
+        pool.query(`SELECT * FROM OrderInfo WHERE orderId = (SELECT MAX(orderId) FROM OrderInfo)`, (err, recordset) => {
+          if (err) {
+            handleError(err, res);            
+          } else {
+            res.status(200).json(recordset["recordset"]);
+          }
+        });
+      }
+    });
+  })
+});
 
 app.listen(3000);
-
-
-

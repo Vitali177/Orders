@@ -3,10 +3,12 @@ GO
 
 CREATE TABLE [dbo].[OrderInfo](
 	[orderId] [int] IDENTITY(1,1) NOT NULL,
-	[createdAt] [datetime] NOT NULL,
+	[createdAt] [nvarchar](50) NOT NULL,
 	[customer] [nvarchar](50) NOT NULL,
 	[orderStatus] [nvarchar](50) NOT NULL,
-	[shippedAt] [datetime] NOT NULL,
+	[shippedAt] [nvarchar](50) NOT NULL,
+	[totalPrice] [nvarchar](50) NOT NULL,
+	[currency] [nvarchar](50) NOT NULL,
 	[nameShipTo] [nvarchar](50) NOT NULL,
 	[addressShipTo] [nvarchar](50) NOT NULL,
 	[ZIP] [varchar](50) NOT NULL,
@@ -42,12 +44,12 @@ ON UPDATE CASCADE
 ON DELETE CASCADE
 GO
 
-INSERT INTO OrderInfo (createdAt, customer, orderStatus, shippedAt, nameShipTo, addressShipTo, ZIP, region, 
+INSERT INTO OrderInfo (createdAt, customer, orderStatus, shippedAt, totalPrice, currency, nameShipTo, addressShipTo, ZIP, region, 
 country, firstNameCustomer, lastNameCustomer, addressCustomer, phoneCustomer, emailCustomer) VALUES
-('10.08.1991', 'Alfreds Futterkiste', 'Accepted', '8.09.1991', 'Maria Anders', 'Obere Str. 57', 
+('10.08.1991', 'Alfreds Futterkiste', 'Accepted', '8.09.1991', '990', 'EUR', 'Maria Anders', 'Obere Str. 57', 
 '12209', 'Germany', 'Germany', 'Maria', 'Anders', 'Obere Str. 57', '030-0074321', 'Maria.Anders@company.com'),
 
-('23.12.2006', 'Bon app', 'Pending', '13.02.2007', 'Laurence Lebihan', '12, rue des Bouchers', 
+('23.12.2006', 'Bon app', 'Pending', '13.02.2007', '585', 'EUR', 'Laurence Lebihan', '12, rue des Bouchers', 
 '13008', 'France', 'France', 'Laurence', 'Lebihan', '12, rue des Bouchers"', '91.24.45.40', 'Laurence.Lebihan@company.com')
 GO
 
