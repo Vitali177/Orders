@@ -24,14 +24,12 @@ app.get("/dist/main.js", (req, res) => {
 
 app.get("/api/Orders", (req, res) => {
   sql.connect(dbConfig)
-  .then((pool) => {
+  .then(pool => {
     pool.query(`select * from OrderInfo`, (err, recordset) => {
       if (err) {
         handleError(err, res);            
       }
       else {
-        console.log(recordset["recordset"]);
-        
         res.status(200)
           .type("application/json")
           .send(JSON.stringify(recordset["recordset"]));

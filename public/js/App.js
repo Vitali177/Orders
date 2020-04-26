@@ -9,7 +9,6 @@ window.addEventListener("DOMContentLoaded", init);
 
 function init() {
   const urlId = window.location.href.split("id=")[1];
-  console.log(urlId);
 
   setupApplicationUI(); 
   displayPreloaders();
