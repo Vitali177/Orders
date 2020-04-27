@@ -92,7 +92,52 @@ app.post("/api/Orders", (req, res) => {
         });
       }
     });
-  })
+  });
+});
+
+app.post("/api/OrderProducts", (req, res) => {
+  const order = req.body;
+  const keys = Object.keys(order);
+  const values = Object.values(order).reduce((acc, val, index) => (index === 1) ? `'${acc}', '${val}'` : `${acc}, '${val}'`);
+
+  sql.connect(dbConfig)
+  .then(pool => {
+    pool.query(`INSERT INTO ProductInfo (${keys.join(", ")}) VALUES (${values})`, (err, recordset) => {
+      if (err) {
+        handleError(err, res);            
+      } else {
+        pool.query(`SELECT * FROM ProductInfo WHERE id = (SELECT MAX(id) FROM ProductInfo)`, (err, recordset) => {
+          if (err) {
+            handleError(err, res);            
+          } else {
+            res.status(200).json(recordset["recordset"]);
+          }
+        });
+      }
+    });
+  });
+});
+
+app.put("/api/Orders/:orderId", (req, res) => {
+  const { orderId } = req.params;
+  const order = req.body;
+  let str = "";
+
+  for (key in order) {
+    str += `${key} = '${order[key]}', `;
+  }
+  str = str.slice(0, -2); // slice last ", " from str
+
+  sql.connect(dbConfig)
+  .then(pool => {
+    pool.query(`UPDATE OrderInfo SET ${str} WHERE orderId = ${orderId}`, (err, recordset) => {
+      if (err) {
+        handleError(err, res);            
+      } else {
+        res.status(200).json(recordset);
+      }
+    });
+  });
 });
 
 app.listen(3000);
