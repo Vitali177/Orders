@@ -140,4 +140,34 @@ app.put("/api/Orders/:orderId", (req, res) => {
   });
 });
 
+app.delete("/api/Orders/:orderId", (req, res) => {
+  const { orderId } = req.params;
+
+  sql.connect(dbConfig)
+  .then(pool => {
+    pool.query(`DELETE FROM OrderInfo WHERE orderId = ${orderId}`, (err, recordset) => {
+      if (err) {
+        handleError(err, res);            
+      } else {
+        res.status(200).json(recordset);
+      }
+    });
+  });
+});
+
+app.delete("/api/OrderProducts/:id", (req, res) => {
+  const { id } = req.params;
+
+  sql.connect(dbConfig)
+  .then(pool => {
+    pool.query(`DELETE FROM ProductInfo WHERE id = ${id}`, (err, recordset) => {
+      if (err) {
+        handleError(err, res);            
+      } else {
+        res.status(200).json(recordset);
+      }
+    });
+  });
+});
+
 app.listen(3000);
