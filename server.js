@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
 
+const PORT = process.env.PORT || 3000;
+
 const dbConfig = {
   server: "DESKTOP-9V3T2L9\\SQLEXPRESS01",
   user: "test",
@@ -170,4 +172,4 @@ app.delete("/api/OrderProducts/:id", (req, res) => {
   });
 });
 
-app.listen(3000);
+app.listen(PORT);
