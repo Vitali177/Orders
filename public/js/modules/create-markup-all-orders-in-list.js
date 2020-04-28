@@ -4,7 +4,7 @@ export async function createMarkupAllOrdersInList() {
   const orderListMain = document.querySelector(".order-list__main");  
   const numberOfOrders = document.querySelector(".order-list__header-row h3 span");
   let markup = "";
-  const url = "http://localhost:3000/api/Orders";
+  const url = `${window.location.origin}/api/Orders`;
 
   // fetch(url)
   // .then(res => console.log(res.json()))
