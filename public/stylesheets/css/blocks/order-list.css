@@ -94,7 +94,7 @@
 }
 
 .order-list__main {
-  height: calc(100vh - 85px); /* minus order-list__header and order-list__footer */
+  height: calc(100vh - 110px); /* minus order-list__header and order-list__footer */
   width: 100%;
   border-right: 1px solid var(--primary-white);
   overflow: auto;

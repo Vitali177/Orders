@@ -20,7 +20,7 @@ function init() {
       showDetailsOrder(document.querySelector(".order-list__item--selected").id);
       addEventListeners();  
     } else {
-      document.body.innerHTML = getMarkup404NotFound();
+      // document.body.innerHTML = getMarkup404NotFound();
     }
   });
 }

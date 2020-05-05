@@ -12,6 +12,7 @@ export function searchOrders(searchText) {
   fetch(url)
     .then(res => res.json())
     .then(data => {
+      console.log(data);
       let matchesOrders = data.filter(order => {
         const regex = new RegExp(`^${searchText}`, "gi");
     

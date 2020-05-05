@@ -20,7 +20,7 @@ export function generateYandexMap(lat, lng) {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: './assets/img/icon-map.png',
+            iconImageHref: './img/icon-map.png',
             // Размеры метки.
             iconImageSize: [42, 42]
         });

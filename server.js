@@ -32,9 +32,11 @@ app.get("/dist/main.js", (req, res) => {
 });
 
 app.get("/api/Orders", (req, res) => {
+  const query = `SELECT * from OrderInfo INNER JOIN CustomerInfo ON OrderInfo.customerId = CustomerInfo.id`;
+
   sql.connect(dbConfig)
   .then(pool => {
-    pool.query(`SELECT * from OrderInfo`, (err, recordset) => {
+    pool.query(query, (err, recordset) => {
       if (err) {
         handleError(err, res);            
       } else {
@@ -48,13 +50,28 @@ app.get("/api/Orders", (req, res) => {
 
 app.get("/api/Orders/:orderId", (req, res) => {
   const { orderId } = req.params;
+  const query = `SELECT * from OrderInfo 
+  INNER JOIN CustomerInfo ON OrderInfo.customerId = CustomerInfo.id
+  INNER JOIN OrdersProducts ON OrderInfo.id = OrdersProducts.orderId
+  INNER JOIN ProductInfo ON ProductInfo.id = OrdersProducts.productId
+  WHERE OrderInfo.id = ${orderId}`;
+
   sql.connect(dbConfig)
   .then(pool => {
-    pool.query(`SELECT * FROM OrderInfo WHERE orderId = ${orderId}`, (err, recordset) => {
+    pool.query(query, (err, recordset) => {
       if (err) {
         handleError(err, res);            
       } else {
-        res.status(200).json(recordset["recordset"]);
+        const data = recordset["recordset"]
+        const totalPrice = data.reduce((acc, curr) => acc += curr.quantity * curr.price, 0);
+        const { createdAt, shippedAt, status, ZIP, region, country, 
+          firstName, lastName, address, phone, email } = data[0];
+        const order = {
+          id: data[0]["id"][0],
+          createdAt, shippedAt, status, ZIP, region, country, 
+          firstName, lastName, address, phone, email, totalPrice
+        };
+        res.status(200).json(order);
       }
     });
   });
@@ -62,13 +79,19 @@ app.get("/api/Orders/:orderId", (req, res) => {
 
 app.get("/api/Orders/:orderId/products", (req, res) => {
   const { orderId } = req.params;
+  const query = `SELECT * from ProductInfo 
+  INNER JOIN OrdersProducts ON ProductInfo.id = OrdersProducts.productId
+  WHERE OrdersProducts.orderId = ${orderId}`;
+
   sql.connect(dbConfig)
   .then(pool => {
-    pool.query(`SELECT * FROM ProductInfo WHERE orderId = ${orderId}`, (err, recordset) => {
+    pool.query(query, (err, recordset) => {
       if (err) {
         handleError(err, res);            
       } else {
-        res.status(200).json(recordset["recordset"]);
+        const products = recordset["recordset"];
+        products.forEach(item => item.totalPrice = item.quantity * item.price);
+        res.status(200).json(products);
       }
     });
   });
@@ -147,7 +170,7 @@ app.delete("/api/Orders/:orderId", (req, res) => {
 
   sql.connect(dbConfig)
   .then(pool => {
-    pool.query(`DELETE FROM OrderInfo WHERE orderId = ${orderId}`, (err, recordset) => {
+    pool.query(`DELETE FROM OrderInfo WHERE id = ${orderId}`, (err, recordset) => {
       if (err) {
         handleError(err, res);            
       } else {
@@ -157,12 +180,13 @@ app.delete("/api/Orders/:orderId", (req, res) => {
   });
 });
 
-app.delete("/api/OrderProducts/:id", (req, res) => {
-  const { id } = req.params;
+app.delete("/api/OrderProducts/:orderId/:productId", (req, res) => {
+  const { orderId, productId } = req.params;
 
   sql.connect(dbConfig)
   .then(pool => {
-    pool.query(`DELETE FROM ProductInfo WHERE id = ${id}`, (err, recordset) => {
+    pool.query(`DELETE FROM OrdersProducts 
+    WHERE (orderId = ${orderId}) AND (productId = ${productId})`, (err, recordset) => {
       if (err) {
         handleError(err, res);            
       } else {

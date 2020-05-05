@@ -7,23 +7,23 @@ export function getMarkupOrderAddress(order) {
   <ul class="order__address-list">
       <div class="box">
         <li class="order__address-item">Name:</li>
-        <input type="text" class="name" value="${order.shipTo.name}" readonly>
+        <input type="text" class="name" value="${order.firstName}" readonly>
       </div>
       <div class="box">
         <li class="order__address-item">Street:</li>
-        <input type="text" class="address" value="${order.shipTo.address}" readonly>
+        <input type="text" class="address" value="${order.address}" readonly>
       </div>
       <div class="box">
         <li class="order__address-item">ZIP Code / City:</li>
-        <input type="text" class="ZIP" value="${order.shipTo.ZIP}" readonly>
+        <input type="text" class="ZIP" value="${order.ZIP}" readonly>
       </div>
       <div class="box">
         <li class="order__address-item">Region:</li>
-        <input type="text" class="region order-input-region" value="${order.shipTo.region}" readonly>
+        <input type="text" class="region order-input-region" value="${order.region}" readonly>
       </div>
       <div class="box">
         <li class="order__address-item">Country:</li>
-        <input type="text" class="country" value="${order.shipTo.country}" readonly>
+        <input type="text" class="country" value="${order.country}" readonly>
       </div>
   </ul>`;    
 }
