@@ -5,7 +5,7 @@ CREATE TABLE OrderInfo (
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[customerId] [int] NOT NULL,
 	[createdAt] [nvarchar](50) NOT NULL,
-	[shippedAt] [nvarchar](50) NOT NULL,	
+	[shippedAt] [nvarchar](50) NULL,	
 	[status] [nvarchar](50) NOT NULL,
 	[ZIP] [varchar](50) NOT NULL,
 	[region] [nvarchar](50) NOT NULL,
@@ -63,27 +63,30 @@ GO
 
 INSERT INTO CustomerInfo (firstName, lastName, address, phone, email) VALUES
 ('Maria', 'Anders', 'Obere Str. 57', '030-0074321', 'Maria.Anders@company.com'),
-('Laurence', 'Lebihan', '12, rue des Bouchers"', '91.24.45.40', 'Laurence.Lebihan@company.com')
+('Laurence', 'Lebihan', '12, rue des Bouchers"', '91.24.45.40', 'Laurence.Lebihan@company.com'),
+('Pavel', 'Brown', 'Nemiga Str.23', '33-4863792', 'PavelBrown@company.com'),
+('Alexander', 'Green', 'Yanka Kupala Str.8', '29-7561328', 'AlexanderGreen@company.com'),
+('Eugene', 'Baker', 'Independence Avenue Str.15', '33-1286459', 'EugeneBaker@company.com')
 GO
 
 INSERT INTO OrderInfo (customerId, createdAt, status, 
 shippedAt, ZIP, region, country) VALUES
 (1, '10.08.1991', 'Accepted', '8.09.1991', '12209', 'Germany', 'Germany'),
-(2, '23.12.2006', 'Pending', '13.02.2007', '15008', 'France', 'France'),
+(1, '23.12.2006', 'Pending', '13.02.2007', '15008', 'France', 'France'),
 (1, '15.04.1998', 'Accepted', '8.09.1991', '12709', 'Poland', 'Poland'),
 (2, '23.12.2008', 'Pending', '13.02.2007', '13098', 'Belarus', 'Belarus'),
-(1, '11.03.2000', 'Accepted', '8.09.1991', '12200', 'Germany', 'Germany'),
+(2, '11.03.2000', 'Accepted', '8.09.1991', '12200', 'Germany', 'Germany'),
 (2, '23.12.2009', 'Accepted', '13.02.2007', '23008', 'France', 'France'),
-(1, '10.08.1995', 'Accepted', '8.09.1991', '14209', 'Poland', 'Poland'),
-(2, '19.10.2012', 'Pending', '13.02.2007', '13508', 'Belarus', 'Belarus'),
-(1, '10.08.1999', 'Accepted', '8.09.1991', '12289', 'Germany', 'Germany'),
-(2, '23.12.2010', 'Accepted', '13.02.2007', '13003', 'France', 'France'),
-(1, '10.04.1991', 'Accepted', '8.09.1991', '21209', 'Germany', 'Germany'),
-(2, '23.06.2006', 'Pending', '13.02.2007', '20008', 'USA', 'USA'),
-(1, '13.08.1991', 'Accepted', '8.09.1991', '22200', 'Poland', 'Poland'),
-(2, '30.12.2006', 'Pending', '13.02.2007', '23098', 'France', 'France'),
-(1, '05.08.1997', 'Accepted', '8.09.1991', '22709', 'USA', 'USA'),
-(2, '13.12.2002', 'Accepted', '13.02.2007', '25008', 'France', 'France')
+(3, '10.08.1995', 'Accepted', '8.09.1991', '14209', 'Poland', 'Poland'),
+(3, '19.10.2012', 'Pending', '13.02.2007', '13508', 'Belarus', 'Belarus'),
+(3, '10.08.1999', 'Accepted', '8.09.1991', '12289', 'Germany', 'Germany'),
+(4, '23.12.2010', 'Accepted', '13.02.2007', '13003', 'France', 'France'),
+(4, '10.04.1991', 'Accepted', '8.09.1991', '21209', 'Germany', 'Germany'),
+(4, '23.06.2006', 'Pending', '13.02.2007', '20008', 'USA', 'USA'),
+(5, '13.08.1991', 'Accepted', '8.09.1991', '22200', 'Poland', 'Poland'),
+(5, '30.12.2006', 'Pending', '13.02.2007', '23098', 'France', 'France'),
+(5, '05.08.1997', 'Accepted', '8.09.1991', '22709', 'USA', 'USA'),
+(5, '13.12.2002', 'Accepted', '13.02.2007', '25008', 'France', 'France')
 GO
 
 INSERT INTO ProductInfo (productName, price) VALUES
