@@ -3,7 +3,8 @@ import { getMarkupOrderInList } from "../html-markups/get-markup-order-in-list";
 export function searchOrders(searchText) {
   const numberOfOrders = document.querySelector(".order-list__header-row h3 span");
   const orderListMain = document.querySelector(".order-list__main");
-  const orderMainCriteria = ["id", "summary", "shipTo", "customerInfo"];
+  const criteria = ["id", "ZIP", "address", "country", "createdAt", "email", "firstName",
+    "lastName", "phone", "region", "shippedAt", "status"];
   const urlId = window.location.href.split("id=")[1];
   const url = "http://localhost:3000/api/Orders";
 
@@ -12,18 +13,21 @@ export function searchOrders(searchText) {
   fetch(url)
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       let matchesOrders = data.filter(order => {
+        // order.id = order.id[0]; // ! Fix on Server
         const regex = new RegExp(`^${searchText}`, "gi");
+
+        for (let i = 0; i < criteria.length; i++) {
+          if ( `${order[criteria[i]]}`.match(regex)) {
+            return 1;
+          }
+        }       
     
-        for (let keyMain in order) {
-          if (orderMainCriteria.indexOf(keyMain) !== -1) {
-            let mainProperties = order[keyMain];
-            for (let key in mainProperties) {
-              if (`${mainProperties[key]}`.match(regex)) return 1;
-            }    
-          }        
-        }
+        // criteria.forEach(criterion => {
+        //   if ( `${order[criterion]}`.match(regex)) {
+        //     return 1;
+        //   }
+        // });
       });
     
       if (!searchText.length) {
