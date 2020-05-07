@@ -1,9 +1,8 @@
-import { searchProducts } from "./search-products";
 import { getMarkupOrderProduct } from "../html-markups/get-markup-order-product";
 
 export function sortingProducts(image) {
   const orderLineList = document.querySelector("section.order__line-items .wrapper");
-  const alphabetSortCriterion = "name";
+  const alphabetSortCriterion = "productName";
   const defaultDirection = "default";
   const directionASC = "ASC";
   const directionDESC = "DESC";
@@ -13,7 +12,7 @@ export function sortingProducts(image) {
 
   const classSortingCriterion = image.parentNode.classList.value;
   const classesSortingCriterion = ["product", "unit-price", "quantity", "total"];
-  const sortingCriterions = ["name", "price", "quantity", "totalPrice"];
+  const sortingCriterions = ["productName", "price", "quantity", "totalPrice"];
   const sortingCriterion = sortingCriterions[classesSortingCriterion.indexOf(classSortingCriterion)];
 
   const id = document.querySelector("h3.order__name span").innerHTML;
@@ -65,7 +64,7 @@ export function sortingProducts(image) {
       const searchText = document.querySelector(".order__line-items-input-search").value;
       const matchesProducts = sortedProducts.filter(product => {
         const regex = new RegExp(`^${searchText}`, "gi");
-        return `${product.id}`.match(regex) || product.name.match(regex) || `${product.price}`.match(regex) 
+        return `${product.id}`.match(regex) || product.productName.match(regex) || `${product.price}`.match(regex) 
           || `${product.quantity}`.match(regex) || `${product.totalPrice}`.match(regex);
       });
 
