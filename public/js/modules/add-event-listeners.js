@@ -3,7 +3,6 @@ import { searchOrders } from "./search-orders";
 import { searchProducts } from "./search-products";
 import { sortingProducts } from "./sorting-products";
 import { clearSettingsToDefault } from "./clear-settings-to-default";
-import { createMarkupAllOrdersInList } from "./create-markup-all-orders-in-list";
 import { modifyOrderInfo } from "./modify-order-info";
 import { deleteProduct } from "./delete-product";
 import { deleteOrder } from "./delete-order"; 
@@ -60,18 +59,20 @@ export function addEventListeners() {
         orderListItem = orderListItem.parentNode;
       }
 
-      createMarkupAllOrdersInList() // show all orders in menu
-        .then(() => {
-          document.querySelector(`div[id="${orderListItem.id}"]`).classList.add("order-list__item--selected");
-          history.pushState({}, document.title, window.location.pathname + "?id=" + orderListItem.id);
+      // remove backlight from last selected order
+      if (document.querySelector(".order-list__item--selected")) {
+        document.querySelector(".order-list__item--selected").classList.remove("order-list__item--selected");
+      }
 
-          showDetailsOrder(orderListItem.id);
-          clearSettingsToDefault();
+      document.querySelector(`div[id="${orderListItem.id}"]`).classList.add("order-list__item--selected");
+      history.pushState({}, document.title, window.location.pathname + "?id=" + orderListItem.id);
 
-          if (window.innerWidth < tabletWidth) {
-            buttonBack.click(); // hide the menu when the user selects an order
-          }
-        });      
+      showDetailsOrder(orderListItem.id);
+      clearSettingsToDefault();
+
+      if (window.innerWidth < tabletWidth) {
+        buttonBack.click(); // hide the menu when the user selects an order
+      }
     }
   });
 
