@@ -1,8 +1,8 @@
 export function getMarkupOrderInList(order) {  
   return `
-  <div class="order-list__item" id="${order.id[0]}">
+  <div class="order-list__item" id="${order.id}">
     <div class="order-list__item-row">
-        <h4 class="order-list__item-order">Order <span>${order.id[0]}</span></h4>
+        <h4 class="order-list__item-order">Order <span>${order.id}</span></h4>
         <h3 class="order-list__item-ordered-date">${order.createdAt}</h3>
     </div>
     <div class="order-list__item-row">

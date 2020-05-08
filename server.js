@@ -32,7 +32,9 @@ app.get("/dist/main.js", (req, res) => {
 });
 
 app.get("/api/Orders", (req, res) => {
-  const query = `SELECT * from OrderInfo INNER JOIN CustomerInfo ON OrderInfo.customerId = CustomerInfo.id`;
+  const query = `
+  SELECT * FROM OrderInfo
+  INNER JOIN CustomerInfo ON (OrderInfo.customerId = CustomerInfo.id)`;
 
   sql.connect(dbConfig)
   .then(pool => {
@@ -40,17 +42,17 @@ app.get("/api/Orders", (req, res) => {
       if (err) {
         handleError(err, res);            
       } else {
+        // fix bug, because tables OrderInfo and CustomerInfo have the same name column "id"
+        recordset["recordset"].forEach(order => order.id = order.id[0]);
         res.status(200).json(recordset["recordset"]);
       }
     });
   });
 });
 
-// ! Надо посмотреть про маршрутизацию
-
 app.get("/api/Orders/:orderId", (req, res) => {
   const { orderId } = req.params;
-  const query = `SELECT * from OrderInfo 
+  const query = `SELECT * FROM OrderInfo 
   INNER JOIN CustomerInfo ON OrderInfo.customerId = CustomerInfo.id
   INNER JOIN OrdersProducts ON OrderInfo.id = OrdersProducts.orderId
   INNER JOIN ProductInfo ON ProductInfo.id = OrdersProducts.productId
@@ -79,7 +81,7 @@ app.get("/api/Orders/:orderId", (req, res) => {
 
 app.get("/api/Orders/:orderId/products", (req, res) => {
   const { orderId } = req.params;
-  const query = `SELECT * from ProductInfo 
+  const query = `SELECT * FROM ProductInfo 
   INNER JOIN OrdersProducts ON ProductInfo.id = OrdersProducts.productId
   WHERE OrdersProducts.orderId = ${orderId}`;
 

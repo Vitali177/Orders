@@ -14,20 +14,13 @@ export function searchOrders(searchText) {
     .then(res => res.json())
     .then(data => {
       let matchesOrders = data.filter(order => {
-        // order.id = order.id[0]; // ! Fix on Server
         const regex = new RegExp(`^${searchText}`, "gi");
 
         for (let i = 0; i < criteria.length; i++) {
           if ( `${order[criteria[i]]}`.match(regex)) {
             return 1;
           }
-        }       
-    
-        // criteria.forEach(criterion => {
-        //   if ( `${order[criterion]}`.match(regex)) {
-        //     return 1;
-        //   }
-        // });
+        } 
       });
     
       if (!searchText.length) {
