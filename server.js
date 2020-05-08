@@ -92,7 +92,7 @@ app.get("/api/Orders/:orderId/products", (req, res) => {
         handleError(err, res);            
       } else {
         const products = recordset["recordset"];
-        products.forEach(item => item.totalPrice = item.quantity * item.price);
+        products.forEach(item => Math.round(item.totalPrice = item.quantity * item.price));
         res.status(200).json(products);
       }
     });
@@ -123,21 +123,29 @@ app.post("/api/Orders", (req, res) => {
 });
 
 app.post("/api/OrderProducts", (req, res) => {
-  const order = req.body;
-  const keys = Object.keys(order);
-  const values = Object.values(order).reduce((acc, val, index) => (index === 1) ? `'${acc}', '${val}'` : `${acc}, '${val}'`);
+  const product = req.body;
+  const query = `INSERT INTO ProductInfo (productName, price) VALUES
+  ('${product.productName}', ${product.price})
+  INSERT INTO OrdersProducts (orderId, productId, quantity) VALUES
+  (${product.orderId}, (SELECT MAX(id) FROM ProductInfo), ${product.quantity})`;
 
   sql.connect(dbConfig)
   .then(pool => {
-    pool.query(`INSERT INTO ProductInfo (${keys.join(", ")}) VALUES (${values})`, (err, recordset) => {
+    pool.query(query, (err, recordset) => {
       if (err) {
         handleError(err, res);            
       } else {
-        pool.query(`SELECT * FROM ProductInfo WHERE id = (SELECT MAX(id) FROM ProductInfo)`, (err, recordset) => {
+        const queryProduct = `SELECT * FROM ProductInfo 
+        INNER JOIN OrdersProducts ON ProductInfo.id = OrdersProducts.productId
+        WHERE OrdersProducts.orderId = ${product.orderId} AND ProductInfo.id = (SELECT MAX(id) FROM ProductInfo)`;
+        
+        pool.query(queryProduct, (err, recordset) => {
           if (err) {
             handleError(err, res);            
           } else {
-            res.status(200).json(recordset["recordset"]);
+            const product = recordset["recordset"][0];
+            product.totalPrice = Math.round(product.quantity * product.price);
+            res.status(200).json(product);
           }
         });
       }

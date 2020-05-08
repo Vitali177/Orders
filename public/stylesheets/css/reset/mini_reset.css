@@ -58,7 +58,7 @@ h3 {
 
 .create-product-form {
   width: 600px;
-  height: 315px;
+  height: 210px;
   left: calc((100% - 600px) / 2);
   top: calc((100% - 315px) / 2);
 }
