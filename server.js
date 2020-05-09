@@ -126,6 +126,7 @@ app.post("/api/OrderProducts", (req, res) => {
   const product = req.body;
   const query = `INSERT INTO ProductInfo (productName, price) VALUES
   ('${product.productName}', ${product.price})
+
   INSERT INTO OrdersProducts (orderId, productId, quantity) VALUES
   (${product.orderId}, (SELECT MAX(id) FROM ProductInfo), ${product.quantity})`;
 
@@ -156,16 +157,27 @@ app.post("/api/OrderProducts", (req, res) => {
 app.put("/api/Orders/:orderId", (req, res) => {
   const { orderId } = req.params;
   const order = req.body;
-  let str = "";
+  let query;
 
-  for (key in order) {
-    str += `${key} = '${order[key]}', `;
+  // shipping address info
+  if (order.ZIP && order.country) {
+    query = `UPDATE OrderInfo SET 
+    ZIP = '${order.ZIP}', region = '${order.region}', country = '${order.country}'
+    WHERE id = ${orderId}
+    
+    UPDATE CustomerInfo SET
+    firstName = '${order.firstName}', address = '${order.address}'
+    WHERE id = (SELECT customerId FROM OrderInfo WHERE id = ${orderId})`;
+  } else { // customer info
+    query = `UPDATE CustomerInfo SET
+    firstName = '${order.firstName}', lastName = '${order.lastName}', address = '${order.address}',
+    phone = '${order.phone}', email = '${order.email}'
+    WHERE id = (SELECT customerId FROM OrderInfo WHERE id = ${orderId})`;
   }
-  str = str.slice(0, -2); // slice last ", " from str
 
   sql.connect(dbConfig)
   .then(pool => {
-    pool.query(`UPDATE OrderInfo SET ${str} WHERE orderId = ${orderId}`, (err, recordset) => {
+    pool.query(query, (err, recordset) => {
       if (err) {
         handleError(err, res);            
       } else {

@@ -15,8 +15,7 @@ export function modifyOrderInfo(button) {
     const selectedTab = document.querySelector(".tab--selected");
     
     let indexTab;
-    const mainKeys = ["shipTo", "customerInfo"];
-    const keys = [["name", "address", "ZIP", "region", "country"], 
+    const keys = [["firstName", "address", "ZIP", "region", "country"], 
           ["firstName", "lastName", "address", "phone", "email"]];
 
     if (selectedTab.classList.contains("order__address")) {
@@ -26,15 +25,10 @@ export function modifyOrderInfo(button) {
     }
 
     const keysTab = keys[indexTab];
-    const mainKeyTab = mainKeys[indexTab];
-    const data = {
-      [mainKeyTab]: {
-
-      }
-    };
+    const data = {};
 
     keysTab.forEach((value, index) => {
-      data[mainKeyTab][value] = inputs[index].value;
+      data[value] = inputs[index].value;
     });
 
     fetch(url, {
