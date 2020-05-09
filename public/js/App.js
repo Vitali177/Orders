@@ -14,13 +14,19 @@ function init() {
   displayPreloaders();
 
   createMarkupAllOrdersInList().then(() => {
-    if (urlId && document.querySelector(".order-list__item[id='" + urlId + "']")) {
-      document.querySelector(".order-list__item[id='" + urlId + "']").classList.add("order-list__item--selected");
-      
-      showDetailsOrder(document.querySelector(".order-list__item--selected").id);
-      addEventListeners();  
+    if (urlId && !document.querySelector(`.order-list__item[id='${urlId}']`)) {
+      document.body.innerHTML = getMarkup404NotFound();
     } else {
-      // document.body.innerHTML = getMarkup404NotFound();
-    }
+      const order = urlId ? document.querySelector(`.order-list__item[id='${urlId}']`)
+        : document.querySelectorAll(".order-list__item")[0];
+
+      if (!urlId) {
+        history.pushState({}, document.title, `${window.location.pathname}?id=${order.id}`);
+      }
+
+      order.classList.add("order-list__item--selected");  
+      showDetailsOrder(order.id);
+      addEventListeners(); 
+    }       
   });
 }
