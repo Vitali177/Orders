@@ -182,6 +182,19 @@
   cursor: pointer;
 }
 
+.order-list__footer-button-create-order:hover {
+  animation: plus .7s infinite;
+}
+
+@keyframes plus {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media screen and (max-width: 1075px) {
   
   .order-list {

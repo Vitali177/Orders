@@ -256,7 +256,6 @@ input.is-modify:focus {
 /* line-items block */
 
 .order__line-items {
-  height: 45%;
   min-height: 250px;
   padding: 0 20px var(--footer-height) 20px;
   background-color: var(--primary-light-gray);
@@ -295,6 +294,19 @@ input.is-modify:focus {
   cursor: pointer;
 }
 
+.order__line-items-button-create-product:hover {
+  animation: plus .7s infinite;
+}
+
+@keyframes plus {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .order__line-items-input-search {
   width: 275px;
   padding: 0 60px 0 10px;
@@ -310,7 +322,22 @@ input.is-modify:focus {
   font-size: 14px;
   list-style-type: none;
   background-color: var(--primary-white);
+  border-top: 1px solid var(--primary-gray);
+  padding: 3px 0px;
+}
+
+.order__line-list .wrapper .order__line-list-row:last-child {
   border-bottom: 1px solid var(--primary-gray);
+}
+
+.order__line-list .wrapper .order__line-list-row:hover {
+  padding-top: 0;
+  border: 4px solid var(--secondary-blue);
+}
+
+.order__line-list .wrapper .order__line-list-row:hover + .order__line-list-row {
+  border-top: none;
+  padding-top: 0;
 }
 
 .order__line-list-row .product, 
