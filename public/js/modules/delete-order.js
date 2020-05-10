@@ -15,9 +15,13 @@ export function deleteOrder() {
 
     if (document.querySelectorAll(".order-list__item").length) {
       document.querySelectorAll(".order-list__item")[indexSelectedOrder].classList.add("order-list__item--selected");
-      showDetailsOrder(document.querySelector(".order-list__item--selected").id);
+
+      const idSelectedOrder = document.querySelector(".order-list__item--selected").id;
+      showDetailsOrder(idSelectedOrder);
+      history.pushState({}, document.title, `${window.location.pathname}?id=${idSelectedOrder}`);
     } else {  // If there are no orders after delete last order
       orderListMain.innerHTML = `<div class="no-orders">Orders not found</div>`;
+      history.pushState({}, document.title, window.location.pathname);
     }
 
     fetch(url, {method: "DELETE", mode: 'cors', cache: 'no-cache', credentials: 'same-origin'});
