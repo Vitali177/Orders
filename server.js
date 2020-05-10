@@ -54,8 +54,8 @@ app.get("/api/Orders/:orderId", (req, res) => {
   const { orderId } = req.params;
   const query = `SELECT * FROM OrderInfo 
   INNER JOIN CustomerInfo ON OrderInfo.customerId = CustomerInfo.id
-  INNER JOIN OrdersProducts ON OrderInfo.id = OrdersProducts.orderId
-  INNER JOIN ProductInfo ON ProductInfo.id = OrdersProducts.productId
+  LEFT JOIN OrdersProducts ON OrderInfo.id = OrdersProducts.orderId
+  LEFT JOIN ProductInfo ON ProductInfo.id = OrdersProducts.productId
   WHERE OrderInfo.id = ${orderId}`;
 
   sql.connect(dbConfig)
@@ -64,13 +64,11 @@ app.get("/api/Orders/:orderId", (req, res) => {
       if (err) {
         handleError(err, res);            
       } else {
-        const data = recordset["recordset"]
+        const data = recordset["recordset"];
         const totalPrice = data.reduce((acc, curr) => acc += curr.quantity * curr.price, 0);
-        const { createdAt, shippedAt, status, ZIP, region, country, 
-          firstName, lastName, address, phone, email } = data[0];
+        const { createdAt, shippedAt, status, ZIP, region, country, firstName, lastName, address, phone, email } = data[0];
         const order = {
-          id: data[0]["id"][0],
-          createdAt, shippedAt, status, ZIP, region, country, 
+          id: data[0]["id"][0], createdAt, shippedAt, status, ZIP, region, country, 
           firstName, lastName, address, phone, email, totalPrice
         };
         res.status(200).json(order);
@@ -100,21 +98,32 @@ app.get("/api/Orders/:orderId/products", (req, res) => {
 });
 
 app.post("/api/Orders", (req, res) => {
-  const order = req.body;
-  const keys = Object.keys(order);
-  const values = Object.values(order).reduce((acc, val, index) => (index === 1) ? `'${acc}', '${val}'` : `${acc}, '${val}'`);
+  const { createdAt, shippedAt, status, ZIP, region, country, firstName, lastName, address, phone, email } = req.body;
+  const query = `INSERT INTO CustomerInfo (firstName, lastName, address, phone, email) VALUES
+  ('${firstName}', '${lastName}', '${address}', '${phone}', '${email}')
+  
+  INSERT INTO OrderInfo (customerId, createdAt, status, shippedAt, ZIP, region, country) VALUES
+  ((SELECT MAX(id) FROM CustomerInfo), '${createdAt}', '${status}', '${shippedAt}', '${ZIP}', '${region}', '${country}')`;
 
   sql.connect(dbConfig)
   .then(pool => {
-    pool.query(`INSERT INTO OrderInfo (${keys.join(", ")}) VALUES (${values})`, (err, recordset) => {
+    pool.query(query, (err, recordset) => {
       if (err) {
         handleError(err, res);            
       } else {
-        pool.query(`SELECT * FROM OrderInfo WHERE orderId = (SELECT MAX(orderId) FROM OrderInfo)`, (err, recordset) => {
+        const queryOrder = `SELECT * FROM OrderInfo 
+        INNER JOIN CustomerInfo ON OrderInfo.customerId = CustomerInfo.id
+        LEFT JOIN OrdersProducts ON OrderInfo.id = OrdersProducts.orderId
+        LEFT JOIN ProductInfo ON ProductInfo.id = OrdersProducts.productId
+        WHERE OrderInfo.id = (SELECT MAX(id) FROM OrderInfo)`;
+
+        pool.query(queryOrder, (err, recordset) => {
           if (err) {
             handleError(err, res);            
           } else {
-            res.status(200).json(recordset["recordset"]);
+            const order = recordset["recordset"][0];
+            order.id = order.id[0];
+            res.status(200).json(order);
           }
         });
       }

@@ -6,14 +6,9 @@ export function getMarkupCreateOrderForm() {
       <form action="#">
         <h4>Summary</h4>
         <input type="text" class="createdAt" placeholder="Created at">
-        <input type="text" class="customer" placeholder="Customer">
-        <input type="text" class="status" placeholder="Status">
         <input type="text" class="shippedAt" placeholder="Shipped at">
-        <input type="text" class="totalPrice" placeholder="Total price">
-        <input type="text" class="currency" placeholder="Currency">
+        <input type="text" class="status" placeholder="Status">
         <h4>Ship to</h4>
-        <input type="text" class="name" placeholder="Name">
-        <input type="text" class="address" placeholder="Address">
         <input type="text" class="ZIP" placeholder="ZIP">
         <input type="text" class="region" placeholder="Region">
         <input type="text" class="country" placeholder="Country">
