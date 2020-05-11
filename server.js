@@ -42,9 +42,13 @@ app.get("/api/Orders", (req, res) => {
       if (err) {
         handleError(err, res);            
       } else {
-        // fix bug, because tables OrderInfo and CustomerInfo have the same name column "id"
-        recordset["recordset"].forEach(order => order.id = order.id[0]);
-        res.status(200).json(recordset["recordset"]);
+        if (recordset["recordset"].length !== 0) {
+           // fix bug, because tables OrderInfo and CustomerInfo have the same name column "id"
+          recordset["recordset"].forEach(order => order.id = order.id[0]);
+          res.status(200).json(recordset["recordset"]);
+        } else {
+          res.status(404).json({Error: 'There are no orders in the DataBase'});    
+        }   
       }
     });
   });
@@ -65,13 +69,17 @@ app.get("/api/Orders/:orderId", (req, res) => {
         handleError(err, res);            
       } else {
         const data = recordset["recordset"];
-        const totalPrice = data.reduce((acc, curr) => acc += curr.quantity * curr.price, 0);
-        const { createdAt, shippedAt, status, ZIP, region, country, firstName, lastName, address, phone, email } = data[0];
-        const order = {
-          id: data[0]["id"][0], createdAt, shippedAt, status, ZIP, region, country, 
-          firstName, lastName, address, phone, email, totalPrice
-        };
-        res.status(200).json(order);
+        if (data.length) {
+          const totalPrice = data.reduce((acc, curr) => acc += curr.quantity * curr.price, 0);
+          const { createdAt, shippedAt, status, ZIP, region, country, firstName, lastName, address, phone, email } = data[0];
+          const order = {
+            id: data[0]["id"][0], createdAt, shippedAt, status, ZIP, region, country, 
+            firstName, lastName, address, phone, email, totalPrice
+          };
+          res.status(200).json(order);
+        } else {
+          res.status(404).json({Error: "Order with this id is not found"});
+        }
       }
     });
   });
@@ -89,9 +97,13 @@ app.get("/api/Orders/:orderId/products", (req, res) => {
       if (err) {
         handleError(err, res);            
       } else {
-        const products = recordset["recordset"];
-        products.forEach(item => Math.round(item.totalPrice = item.quantity * item.price));
-        res.status(200).json(products);
+        if (recordset["recordset"].length) {
+          const products = recordset["recordset"];
+          products.forEach(item => Math.round(item.totalPrice = item.quantity * item.price));
+          res.status(200).json(products);
+        } else {
+          res.status(404).json({Error: "Products of the order with this id is not found"});
+        }        
       }
     });
   });
@@ -190,7 +202,30 @@ app.put("/api/Orders/:orderId", (req, res) => {
       if (err) {
         handleError(err, res);            
       } else {
-        res.status(200).json(recordset);
+        if (recordset["rowsAffected"][0] !== 0) {
+          const queryOrder = `SELECT * FROM OrderInfo 
+          INNER JOIN CustomerInfo ON OrderInfo.customerId = CustomerInfo.id
+          LEFT JOIN OrdersProducts ON OrderInfo.id = OrdersProducts.orderId
+          LEFT JOIN ProductInfo ON ProductInfo.id = OrdersProducts.productId
+          WHERE OrderInfo.id = ${orderId}`;
+
+          pool.query(queryOrder, (err, recordset) => {
+            if (err) {
+              handleError(err, res);            
+            } else {
+              const data = recordset["recordset"];
+              const totalPrice = data.reduce((acc, curr) => acc += curr.quantity * curr.price, 0);
+              const { createdAt, shippedAt, status, ZIP, region, country, firstName, lastName, address, phone, email } = data[0];
+              const order = {
+                id: data[0]["id"][0], createdAt, shippedAt, status, ZIP, region, country, 
+                firstName, lastName, address, phone, email, totalPrice
+              };
+              res.status(200).json(order);              
+            }
+          });
+        } else {
+          res.status(404).json({Error: "Unable to insert new data. Order with this id is not found"})
+        }
       }
     });
   });
@@ -205,7 +240,11 @@ app.delete("/api/Orders/:orderId", (req, res) => {
       if (err) {
         handleError(err, res);            
       } else {
-        res.status(200).json(recordset);
+        if (recordset["rowsAffected"][0] !== 0) {
+          res.status(200).json(recordset);
+        } else {
+          res.status(404).json({Error: "Unable to delete order. Order with this id is not found"});
+        }
       }
     });
   });
@@ -221,7 +260,11 @@ app.delete("/api/OrderProducts/:orderId/:productId", (req, res) => {
       if (err) {
         handleError(err, res);            
       } else {
-        res.status(200).json(recordset);
+        if (recordset["rowsAffected"][0] !== 0) {
+          res.status(200).json(recordset);
+        } else {
+          res.status(404).json({Error: "Unable to delete product of the order. Product or order with it\'s id is not found"});
+        }
       }
     });
   });
