@@ -2,8 +2,7 @@
   "GET": [
     {
       "url": "http://localhost:3000/api/Orders",
-      "expected response": "Should return array of orders",
-      "handle error": "If there are no orders should return {Error: 'There are no orders in the DataBase'}"
+      "expected response": "Should return array of orders"
     },
     {
       "url": "http://localhost:3000/api/Orders/:orderId",
@@ -12,8 +11,7 @@
     },
     {
       "url": "http://localhost:3000/api/Orders/:orderId/products",
-      "expected response": "Should return array of products of order by this orderId",
-      "handle error": "If there are no products of the order should return {Error: 'Products of the order with this id is not found'}"
+      "expected response": "Should return array of products of order by this orderId"
     }
   ],
   "POST": [

@@ -42,13 +42,10 @@ app.get("/api/Orders", (req, res) => {
       if (err) {
         handleError(err, res);            
       } else {
-        if (recordset["recordset"].length !== 0) {
-           // fix bug, because tables OrderInfo and CustomerInfo have the same name column "id"
-          recordset["recordset"].forEach(order => order.id = order.id[0]);
-          res.status(200).json(recordset["recordset"]);
-        } else {
-          res.status(404).json({Error: 'There are no orders in the DataBase'});    
-        }   
+        const orders = recordset["recordset"];
+        // fix bug, because tables OrderInfo and CustomerInfo have the same name column "id"
+        orders.forEach(order => order.id = order.id[0]);
+        res.status(200).json(orders);        
       }
     });
   });
@@ -97,13 +94,9 @@ app.get("/api/Orders/:orderId/products", (req, res) => {
       if (err) {
         handleError(err, res);            
       } else {
-        if (recordset["recordset"].length) {
-          const products = recordset["recordset"];
-          products.forEach(item => Math.round(item.totalPrice = item.quantity * item.price));
-          res.status(200).json(products);
-        } else {
-          res.status(404).json({Error: "Products of the order with this id is not found"});
-        }        
+        const products = recordset["recordset"];
+        products.forEach(item => Math.round(item.totalPrice = item.quantity * item.price));
+        res.status(200).json(products);     
       }
     });
   });
