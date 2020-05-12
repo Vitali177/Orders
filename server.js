@@ -7,10 +7,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const dbConfig = {
-  server: "DESKTOP-9V3T2L9\\SQLEXPRESS01",
-  user: "test",
-  password: "123",
-  database: "ORDERS",
+  server: "ORDERS-DB.mssql.somee.com",
+  user: "ASD177_SQLLogin_1",
+  password: "odrjub6dsv",
+  database: "ORDERS-DB",
   port: 1433
 };
 
