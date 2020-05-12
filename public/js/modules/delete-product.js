@@ -18,6 +18,6 @@ export function deleteProduct(button) {
     wrapperOfProducts.innerHTML = `<div class="no-products">Products not found</div>`;
   }
 
-  const url = `http://localhost:3000/api/OrderProducts/${orderId}/${productId}`;  
+  const url = `${window.location.origin}/api/OrderProducts/${orderId}/${productId}`;  
   fetch(url, {method: "DELETE", mode: 'cors', cache: 'no-cache', credentials: 'same-origin'});
 }

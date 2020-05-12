@@ -4,7 +4,7 @@ export function searchProducts(searchText) {
   const numberLineItems = document.querySelector(".order__line-items-heading span");
   const orderLineList = document.querySelector(".order__line-list .wrapper");
   const id = document.querySelector("h3.order__name span").innerHTML;
-  const url = `http://localhost:3000/api/Orders/${id}/products`;  
+  const url = `${window.location.origin}/api/Orders/${id}/products`;  
 
   [...document.querySelectorAll(".sort-picture--DESC"),
   ...document.querySelectorAll(".sort-picture--ASC")].forEach(lastImage => {  // show default state of other "active" images

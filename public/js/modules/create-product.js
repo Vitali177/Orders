@@ -7,7 +7,7 @@ export async function createProduct() {
   const orderId = window.location.href.split("id=")[1];
 
   const product = {productName, price, quantity, orderId};
-  const url = "http://localhost:3000/api/OrderProducts";
+  const url = `${window.location.origin}/api/OrderProducts`;
 
   fetch(url, {
     method: "POST",

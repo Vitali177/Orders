@@ -17,7 +17,7 @@ export async function createOrder() {
     createdAt, shippedAt, status, ZIP, region, country,
     firstName, lastName, address, phone, email
   };
-  const url = "http://localhost:3000/api/Orders";
+  const url = `${window.location.origin}/api/Orders`;
 
   fetch(url, {
     method: "POST",

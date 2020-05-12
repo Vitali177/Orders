@@ -11,7 +11,7 @@ export function modifyOrderInfo(button) {
     isReadOnly = true;
 
     const orderId = window.location.href.split("id=")[1];
-    const url = `http://localhost:3000/api/Orders/${orderId}`;
+    const url = `${window.location.origin}/api/Orders/${orderId}`;
     const selectedTab = document.querySelector(".tab--selected");
     
     let indexTab;

@@ -16,7 +16,7 @@ export function sortingProducts(image) {
   const sortingCriterion = sortingCriterions[classesSortingCriterion.indexOf(classSortingCriterion)];
 
   const id = document.querySelector("h3.order__name span").innerHTML;
-  const url = `http://localhost:3000/api/Orders/${id}/products`;
+  const url = `${window.location.origin}/api/Orders/${id}/products`;
 
   orderLineList.innerHTML = `<div class="preloader"></div>`;
 

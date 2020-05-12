@@ -7,7 +7,7 @@ export function deleteOrder() {
   const indexSelectedOrder = 0;  // default selected order
 
   const id = selectedOrder.id;
-  const url = `http://localhost:3000/api/Orders/${id}`;  
+  const url = `${window.location.origin}/api/Orders/${id}`;  
 
   if (selectedOrder) {
     orderListMain.removeChild(selectedOrder);

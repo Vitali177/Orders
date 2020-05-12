@@ -13,8 +13,8 @@ export function showDetailsOrder(id) {
   const sectionOrderLineItems = document.querySelector("section.order__line-items .wrapper");
   const numberLineItems = document.querySelector(".order__line-items-heading span");
   
-  const url = `http://localhost:3000/api/Orders/${id}`;  
-  const urlProducts = `http://localhost:3000/api/Orders/${id}/products`; 
+  const url = `${window.location.origin}/api/Orders/${id}`;  
+  const urlProducts = `${window.location.origin}/api/Orders/${id}/products`; 
 
   fetch(url)
     .then(res => res.json())

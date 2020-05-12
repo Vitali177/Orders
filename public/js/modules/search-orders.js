@@ -6,7 +6,7 @@ export function searchOrders(searchText) {
   const criteria = ["id", "ZIP", "address", "country", "createdAt", "email", "firstName",
     "lastName", "phone", "region", "shippedAt", "status"];
   const urlId = window.location.href.split("id=")[1];
-  const url = "http://localhost:3000/api/Orders";
+  const url = `${window.location.origin}/api/Orders`;
 
   orderListMain.innerHTML = `<div class="preloader"></div>`;
 
