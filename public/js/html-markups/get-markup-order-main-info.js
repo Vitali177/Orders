@@ -2,7 +2,10 @@ export function getMarkupOrderMainInfo(order) {
   return `
   <div class="order__row">
       <h3 class="order__name">Order <span>${order.id}</span></h3>
-      <h3 class="order__cost">${(+order.totalPrice).toFixed(2)} <br><span>EUR</span></h3>
+      <div class="order__cost">
+        <h3 class="order__cost-value">${(+order.totalPrice).toFixed(2)}</h3>
+        <span>EUR</span>
+      </div>
   </div>
   <ul class="order__main-info-list">
       <li class="order__customer">Customer: <span></span>${order.firstName} ${order.lastName}</span></li>

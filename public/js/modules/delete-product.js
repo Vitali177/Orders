@@ -1,6 +1,7 @@
 export function deleteProduct(button) {
   const wrapperOfProducts = document.querySelector(".order__line-list > .wrapper");
   const numberOfProducts = document.querySelector(".order__line-items-heading span");
+  const orderCost = document.querySelector(".order__cost-value");
   const orderId = document.querySelector(".order-list__item--selected").id;
   let product = button.parentNode;
   
@@ -9,9 +10,11 @@ export function deleteProduct(button) {
   }
 
   const productId = product.querySelector(".id").innerHTML;
+  const productCost = product.querySelector(".total .value").innerHTML;
 
   wrapperOfProducts.removeChild(product);
   numberOfProducts.innerHTML--;
+  orderCost.innerHTML =  (+orderCost.innerHTML - +productCost).toFixed(2);
 
   // If there are no products after delete last product
   if (!wrapperOfProducts.querySelectorAll(".order__line-list-row").length) {
