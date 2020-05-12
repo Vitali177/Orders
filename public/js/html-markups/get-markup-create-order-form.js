@@ -7,7 +7,11 @@ export function getMarkupCreateOrderForm() {
         <h4>Summary</h4>
         <input type="text" class="createdAt" placeholder="Created at">
         <input type="text" class="shippedAt" placeholder="Shipped at">
-        <input type="text" class="status" placeholder="Status">
+        <h4>Status</h4>
+        <select class="status">
+          <option value="Accepted" selected>Accepted</option>
+          <option value="Pending">Pending</option>
+        </select>
         <h4>Ship to</h4>
         <input type="text" class="ZIP" placeholder="ZIP">
         <input type="text" class="region" placeholder="Region">

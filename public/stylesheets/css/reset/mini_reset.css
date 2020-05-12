@@ -58,16 +58,16 @@ h3 {
 
 .create-product-form {
   width: 600px;
-  height: 210px;
+  height: 205px;
   left: calc((100% - 600px) / 2);
-  top: calc((100% - 315px) / 2);
+  top: calc((100% - 205px) / 2);
 }
 
 .create-order-form {
   width: 600px;
-  height: 725px;
+  height: 605px;
   left: calc((100% - 600px) / 2);
-  top: 0px;
+  top: calc((100% - 605px) / 2);
 }
 
 .pop-up-form form {  
@@ -85,7 +85,7 @@ h3 {
   font-weight: 300;
 }
 
-.pop-up-form input {
+.pop-up-form input, .pop-up-form select {
   margin-top: 10px;
   padding: 3px 10px;
 }
