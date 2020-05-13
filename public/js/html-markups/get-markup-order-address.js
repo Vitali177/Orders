@@ -6,10 +6,6 @@ export function getMarkupOrderAddress(order) {
   </div>
   <ul class="order__address-list">
       <div class="box">
-        <li class="order__address-item">Name:</li>
-        <input type="text" class="name" value="${order.firstName}" readonly>
-      </div>
-      <div class="box">
         <li class="order__address-item">Street:</li>
         <input type="text" class="address" value="${order.address}" readonly>
       </div>

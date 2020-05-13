@@ -7,11 +7,11 @@ export function getMarkupOrderCustomer(order) {
   <ul class="order__processor-list order__address-list">
     <div class="box">
       <li class="order__address-item">First Name:</li>
-      <input type="text" value="${order.firstName}" readonly>
+      <input type="text" class="firstName" value="${order.firstName}" readonly>
     </div>
     <div class="box">
       <li class="order__address-item">Last Name:</li>
-      <input type="text" value="${order.lastName}" readonly>
+      <input type="text" class="lastName" value="${order.lastName}" readonly>
     </div>
     <div class="box">
       <li class="order__address-item">Address:</li>

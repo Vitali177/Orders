@@ -14,6 +14,20 @@ export function modifyOrderInfo(button) {
     const url = `${window.location.origin}/api/Orders/${orderId}`;
     const selectedTab = document.querySelector(".tab--selected");
     
+    function updateOrderInMenu() {
+      const customerName = document.querySelector(".order-list__item--selected .order-list__item-customer");
+      const firstName = document.querySelector(".tab--selected input.firstName").value;
+      const lastName = document.querySelector(".tab--selected input.lastName").value;
+
+      customerName.innerHTML = `${firstName} ${lastName}`;
+    }
+
+    inputs.forEach(input => {
+      if (input.classList.contains("firstName")) {
+        updateOrderInMenu();
+      }
+    });
+
     let indexTab;
     const keys = [["firstName", "address", "ZIP", "region", "country"], 
           ["firstName", "lastName", "address", "phone", "email"]];
