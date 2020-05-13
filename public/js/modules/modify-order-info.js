@@ -29,7 +29,7 @@ export function modifyOrderInfo(button) {
     });
 
     let indexTab;
-    const keys = [["firstName", "address", "ZIP", "region", "country"], 
+    const keys = [["address", "ZIP", "region", "country"], 
           ["firstName", "lastName", "address", "phone", "email"]];
 
     if (selectedTab.classList.contains("order__address")) {
