@@ -361,12 +361,20 @@ input.is-modify:focus {
 }
 
 .order__line-list-row .product {
+  max-width: calc(100% / 5);
   padding-left: 10px;
   font-weight: 700;
 
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
+}
+
+.order__line-list-row .product span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: normal;
 }
 
 .order__line-list-row .product .id {
