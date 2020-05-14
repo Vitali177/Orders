@@ -234,11 +234,11 @@
   }
   
   .order-list__form .order-list__button-refresh {
-    right: 7px;
+    right: 15px;
   }
 
   .order-list__form .order-list__button-search {
-    right: 30px;
+    right: 40px;
   }
 
   .order-list__footer {

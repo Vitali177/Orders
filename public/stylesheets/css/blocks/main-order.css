@@ -63,6 +63,7 @@
 }
 
 .order__button {
+  position: relative;
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -89,10 +90,19 @@
 
 .order__button--selected {
   background-color: var(--primary-blue);
-  position: relative;
 }
 
-.order__button--selected::before {
+.order__button:hover::before {
+  content: "";
+  position: absolute;
+  top: 43px;
+  height: 2px;
+  width: 100%;
+  background-color: var(--primary-gray);
+  cursor: default;
+}
+
+.order__button.order__button--selected::before {
   content: "";
   position: absolute;
   top: 43px;
@@ -461,7 +471,6 @@ input.is-modify:focus {
   .order__address-list {
     padding: 0;
     margin: 0 20px;
-    width: 100%;
   }
 
   .order__address-list .box {
@@ -506,11 +515,11 @@ input.is-modify:focus {
     width: 260px;
   }
 
-  .order-list__button-search {
+  .order__line-items-form .order-list__button-search {
     right: 25px;
   }
 
-  .order-list__button-refresh {
+  .order__line-items-form .order-list__button-refresh {
     right: 0;
   }
 
