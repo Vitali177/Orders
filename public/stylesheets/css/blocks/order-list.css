@@ -148,11 +148,11 @@
   font-weight: 300;
 }
 
-.order-list__item-order-time--accepted {
+.order-list__item-order-time--in-time {
   color: var(--primary-green);
 }
 
-.order-list__item-order-time--pending {
+.order-list__item-order-time--urgent {
   color: var(--primary-orange);
 }
 

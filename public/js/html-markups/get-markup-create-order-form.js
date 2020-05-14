@@ -9,8 +9,9 @@ export function getMarkupCreateOrderForm() {
         <input type="text" class="shippedAt" placeholder="Shipped at">
         <h4>Status</h4>
         <select class="status">
-          <option value="Accepted" selected>Accepted</option>
-          <option value="Pending">Pending</option>
+          <option value="In time" selected>In time</option>
+          <option value="Urgent">Urgent</option>
+          <option value="Too late">Too late</option>
         </select>
         <h4>Ship to</h4>
         <input type="text" class="ZIP" placeholder="ZIP">

@@ -1,5 +1,8 @@
 export function getMarkupOrderInList(order) {  
-  const statusClass = order.status.toLowerCase();
+  const classes = ["in-time", "urgent", "too-late"];
+  const statuses = ["In time", "Urgent", "Too late"];
+  const statusClass = classes[statuses.indexOf(order.status)];
+  
   return `
   <div class="order-list__item" id="${order.id}">
     <div class="order-list__item-row">

@@ -71,22 +71,22 @@ GO
 
 INSERT INTO OrderInfo (customerId, createdAt, status, 
 shippedAt, ZIP, region, country) VALUES
-(1, '10.08.1991', 'Accepted', '8.09.1991', '12209', 'Germany', 'Germany'),
-(1, '23.12.2006', 'Pending', '13.02.2007', '15008', 'France', 'France'),
-(1, '15.04.1998', 'Accepted', '8.09.1991', '12709', 'Poland', 'Poland'),
-(2, '23.12.2008', 'Pending', '13.02.2007', '13098', 'Belarus', 'Belarus'),
-(2, '11.03.2000', 'Accepted', '8.09.1991', '12200', 'Germany', 'Germany'),
-(2, '23.12.2009', 'Accepted', '13.02.2007', '23008', 'France', 'France'),
-(3, '10.08.1995', 'Accepted', '8.09.1991', '14209', 'Poland', 'Poland'),
-(3, '19.10.2012', 'Pending', '13.02.2007', '13508', 'Belarus', 'Belarus'),
-(3, '10.08.1999', 'Accepted', '8.09.1991', '12289', 'Germany', 'Germany'),
-(4, '23.12.2010', 'Accepted', '13.02.2007', '13003', 'France', 'France'),
-(4, '10.04.1991', 'Accepted', '8.09.1991', '21209', 'Germany', 'Germany'),
-(4, '23.06.2006', 'Pending', '13.02.2007', '20008', 'USA', 'USA'),
-(5, '13.08.1991', 'Accepted', '8.09.1991', '22200', 'Poland', 'Poland'),
-(5, '30.12.2006', 'Pending', '13.02.2007', '23098', 'France', 'France'),
-(5, '05.08.1997', 'Accepted', '8.09.1991', '22709', 'USA', 'USA'),
-(5, '13.12.2002', 'Accepted', '13.02.2007', '25008', 'France', 'France')
+(1, '10.08.1991', 'In time', '8.09.1991', '12209', 'Germany', 'Germany'),
+(1, '23.12.2006', 'Urgent', '13.02.2007', '15008', 'France', 'France'),
+(1, '15.04.1998', 'In time', '8.09.1991', '12709', 'Poland', 'Poland'),
+(2, '23.12.2008', 'Too late', '13.02.2007', '13098', 'Belarus', 'Belarus'),
+(2, '11.03.2000', 'Urgent', '8.09.1991', '12200', 'Germany', 'Germany'),
+(2, '23.12.2009', 'In time', '13.02.2007', '23008', 'France', 'France'),
+(3, '10.08.1995', 'In time', '8.09.1991', '14209', 'Poland', 'Poland'),
+(3, '19.10.2012', 'Urgent', '13.02.2007', '13508', 'Belarus', 'Belarus'),
+(3, '10.08.1999', 'Too late', '8.09.1991', '12289', 'Germany', 'Germany'),
+(4, '23.12.2010', 'Urgent', '13.02.2007', '13003', 'France', 'France'),
+(4, '10.04.1991', 'In time', '8.09.1991', '21209', 'Germany', 'Germany'),
+(4, '23.06.2006', 'Too late', '13.02.2007', '20008', 'USA', 'USA'),
+(5, '13.08.1991', 'In time', '8.09.1991', '22200', 'Poland', 'Poland'),
+(5, '30.12.2006', 'In time', '13.02.2007', '23098', 'France', 'France'),
+(5, '05.08.1997', 'Too late', '8.09.1991', '22709', 'USA', 'USA'),
+(5, '13.12.2002', 'In time', '13.02.2007', '25008', 'France', 'France')
 GO
 
 INSERT INTO ProductInfo (productName, price) VALUES
