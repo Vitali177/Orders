@@ -14,17 +14,19 @@ export function modifyOrderInfo(button) {
     const url = `${window.location.origin}/api/Orders/${orderId}`;
     const selectedTab = document.querySelector(".tab--selected");
     
-    function updateOrderInMenu() {
+    function updateOrderInfo() {
       const customerName = document.querySelector(".order-list__item--selected .order-list__item-customer");
+      const orderCustomer = document.querySelector(".order__customer span");
       const firstName = document.querySelector(".tab--selected input.firstName").value;
       const lastName = document.querySelector(".tab--selected input.lastName").value;
 
       customerName.innerHTML = `${firstName} ${lastName}`;
+      orderCustomer.innerHTML = `${firstName} ${lastName}`;
     }
 
     inputs.forEach(input => {
       if (input.classList.contains("firstName")) {
-        updateOrderInMenu();
+        updateOrderInfo();
       }
     });
 

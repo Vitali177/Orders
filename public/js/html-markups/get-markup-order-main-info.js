@@ -8,7 +8,7 @@ export function getMarkupOrderMainInfo(order) {
       </div>
   </div>
   <ul class="order__main-info-list">
-      <li class="order__customer">Customer: <span></span>${order.firstName} ${order.lastName}</span></li>
+      <li class="order__customer">Customer: <span>${order.firstName} ${order.lastName}</span></li>
       <li class="order__ordered">Ordered: <span>${order.createdAt}</span></li>
       <li class="order__shipped">Shipped: <span>${order.shippedAt}</span></li>
   </ul>`;    
