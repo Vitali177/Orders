@@ -10,6 +10,7 @@ import { createProduct } from "./create-product";
 import { createOrder } from "./create-order";
 import { showExistCustomers } from "./show-exist-customers";
 import { showExistProducts } from "./show-exist-products";
+import { addProducts } from "./add-products";
 import { getMarkupCreateProductForm } from "../html-markups/get-markup-create-product-form";
 import { getMarkupCreateOrderForm } from "../html-markups/get-markup-create-order-form";
 
@@ -169,16 +170,20 @@ export function addEventListeners() {
       createOrder();
       hiddenForm();
     }
-    else if (e.target.classList.contains("product-cancel-button") ||
-             e.target.classList.contains("add-products-cancel-button") ||
-             e.target.classList.contains("order-cancel-button")) {
+    else if (e.target.classList.contains("submit-add-products")) {
+      e.preventDefault();
+      addProducts();
       hiddenForm();
-    }  
-    
-    if (e.target.classList.contains("exist-customers")) {
+    }
+    else if (e.target.classList.contains("exist-customers")) {
       e.preventDefault();
       document.querySelector(".exist-customers").classList.add("exist-customers--active");
       showExistCustomers();
     }
+    else if (e.target.classList.contains("product-cancel-button") ||
+             e.target.classList.contains("add-products-cancel-button") ||
+             e.target.classList.contains("order-cancel-button")) {
+      hiddenForm();
+    }    
   });  
 }

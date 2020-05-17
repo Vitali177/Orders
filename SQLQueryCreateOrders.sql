@@ -44,7 +44,6 @@ ALTER TABLE OrdersProducts
 WITH CHECK ADD CONSTRAINT FK_ProductInfo_OrdersProducts FOREIGN KEY(productId)
 REFERENCES ProductInfo (id)
 ON UPDATE CASCADE
-ON DELETE CASCADE
 GO
 
 ALTER TABLE OrdersProducts
@@ -58,7 +57,6 @@ ALTER TABLE OrderInfo
 WITH CHECK ADD CONSTRAINT FK_OrderInfo_CustomerInfo FOREIGN KEY(customerId)
 REFERENCES CustomerInfo (id)
 ON UPDATE CASCADE
-ON DELETE CASCADE
 GO
 
 INSERT INTO CustomerInfo (firstName, lastName, address, phone, email) VALUES

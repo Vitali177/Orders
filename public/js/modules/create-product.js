@@ -1,12 +1,8 @@
-import { getMarkupOrderProduct } from "../html-markups/get-markup-order-product.js";
-
 export async function createProduct() {
   const productName = document.querySelector(".pop-up-form .input-name").value;
   const price = document.querySelector(".pop-up-form .input-price").value;
-  const quantity = document.querySelector(".pop-up-form .input-quantity").value;
-  const orderId = window.location.href.split("id=")[1];
 
-  const product = {productName, price, quantity, orderId};
+  const product = {productName, price};
   const url = `${window.location.origin}/api/OrderProducts`;
 
   fetch(url, {

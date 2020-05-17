@@ -41,5 +41,6 @@ export async function createOrder() {
 
     orderListMain.innerHTML += getMarkupOrderInList(data);
     numberOfOrders.innerHTML++;
+    document.querySelector(".order-list__item:last-child").click(); // select and show new order
   })  
 }

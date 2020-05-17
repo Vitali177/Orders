@@ -187,19 +187,41 @@ app.post("/api/OrderProducts", (req, res) => {
         handleError(err, res);            
       } else {
         res.json(recordset);
-        // const queryProduct = `SELECT * FROM ProductInfo 
-        // INNER JOIN OrdersProducts ON ProductInfo.id = OrdersProducts.productId
-        // WHERE OrdersProducts.orderId = ${product.orderId} AND ProductInfo.id = (SELECT MAX(id) FROM ProductInfo)`;
+      }
+    });
+  });
+});
+
+app.post("/api/OrderProducts/:orderId", (req, res) => {
+  const { orderId } = req.params;
+  const products = req.body;
+  let query = "INSERT INTO OrdersProducts (orderId, productId, quantity) VALUES";
+
+  products.forEach(product => query += ` (${orderId}, ${product.id}, ${product.quantity}),`);
+  query = query.slice(0, -1); // remove last comma
+
+  sql.connect(dbConfig)
+  .then(pool => {
+    pool.query(query, (err, recordset) => {
+      if (err) {
+        handleError(err, res);            
+      } else {
+        let queryProduct = `SELECT * FROM ProductInfo 
+        INNER JOIN OrdersProducts ON ProductInfo.id = OrdersProducts.productId
+        WHERE OrdersProducts.orderId = ${orderId} AND (`;
         
-        // pool.query(queryProduct, (err, recordset) => {
-        //   if (err) {
-        //     handleError(err, res);            
-        //   } else {
-        //     const product = recordset["recordset"][0];
-        //     product.totalPrice = Math.round(product.quantity * product.price);
-        //     res.status(200).json(product);
-        //   }
-        // });
+        products.forEach(product => queryProduct += ` ProductInfo.id = ${product.id} OR`);
+        queryProduct = `${queryProduct.slice(0, -2)})`; // remove last comma and close brace
+
+        pool.query(queryProduct, (err, recordset) => {
+          if (err) {
+            handleError(err, res);            
+          } else {
+            const products = recordset["recordset"];
+            products.forEach(product => product.totalPrice = Math.round(product.quantity * product.price));
+            res.status(200).json(products);
+          }
+        });
       }
     });
   });
