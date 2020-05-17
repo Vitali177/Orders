@@ -82,6 +82,21 @@ app.get("/api/Orders/:orderId", (req, res) => {
   });
 });
 
+app.get("/api/Products", (req, res) => {
+  const query = "SELECT * FROM ProductInfo";
+
+  sql.connect(dbConfig)
+  .then(pool => {
+    pool.query(query, (err, recordset) => {
+      if (err) {
+        handleError(err, res);            
+      } else {
+        res.status(200).json(recordset["recordset"]);        
+      }
+    });
+  });
+});
+
 app.get("/api/Orders/:orderId/products", (req, res) => {
   const { orderId } = req.params;
   const query = `SELECT * FROM ProductInfo 
@@ -163,10 +178,7 @@ app.post("/api/Orders", (req, res) => {
 app.post("/api/OrderProducts", (req, res) => {
   const product = req.body;
   const query = `INSERT INTO ProductInfo (productName, price) VALUES
-  ('${product.productName}', ${product.price})
-
-  INSERT INTO OrdersProducts (orderId, productId, quantity) VALUES
-  (${product.orderId}, (SELECT MAX(id) FROM ProductInfo), ${product.quantity})`;
+  ('${product.productName}', ${product.price})`;
 
   sql.connect(dbConfig)
   .then(pool => {
@@ -174,19 +186,20 @@ app.post("/api/OrderProducts", (req, res) => {
       if (err) {
         handleError(err, res);            
       } else {
-        const queryProduct = `SELECT * FROM ProductInfo 
-        INNER JOIN OrdersProducts ON ProductInfo.id = OrdersProducts.productId
-        WHERE OrdersProducts.orderId = ${product.orderId} AND ProductInfo.id = (SELECT MAX(id) FROM ProductInfo)`;
+        res.json(recordset);
+        // const queryProduct = `SELECT * FROM ProductInfo 
+        // INNER JOIN OrdersProducts ON ProductInfo.id = OrdersProducts.productId
+        // WHERE OrdersProducts.orderId = ${product.orderId} AND ProductInfo.id = (SELECT MAX(id) FROM ProductInfo)`;
         
-        pool.query(queryProduct, (err, recordset) => {
-          if (err) {
-            handleError(err, res);            
-          } else {
-            const product = recordset["recordset"][0];
-            product.totalPrice = Math.round(product.quantity * product.price);
-            res.status(200).json(product);
-          }
-        });
+        // pool.query(queryProduct, (err, recordset) => {
+        //   if (err) {
+        //     handleError(err, res);            
+        //   } else {
+        //     const product = recordset["recordset"][0];
+        //     product.totalPrice = Math.round(product.quantity * product.price);
+        //     res.status(200).json(product);
+        //   }
+        // });
       }
     });
   });

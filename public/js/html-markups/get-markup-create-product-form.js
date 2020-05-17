@@ -6,7 +6,6 @@ export function getMarkupCreateProductForm() {
       <form action="#">
         <input type="text" class="input-name" placeholder="Name" required>
         <input type="text" class="input-price" placeholder="Price" required>
-        <input type="text" class="input-quantity" placeholder="Quantity" required>
         <input type="submit" class="submit-create-product" value="Create Product">
       </form>     
       <div class="product-cancel-button cancel-button"></div> 

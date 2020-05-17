@@ -295,7 +295,7 @@ input.is-modify:focus {
   width: 275px;
 }
 
-.order__line-items-button-create-product {
+.order__line-items-button-add-products {
   margin: 0 10px;
   height: 20px;
   width: 20px;
@@ -304,7 +304,7 @@ input.is-modify:focus {
   cursor: pointer;
 }
 
-.order__line-items-button-create-product:hover {
+.order__line-items-button-add-products:hover {
   animation: plus .7s infinite;
 }
 

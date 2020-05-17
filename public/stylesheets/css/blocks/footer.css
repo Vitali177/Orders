@@ -11,14 +11,18 @@
   align-items: center;  
 }
 
-.footer__delete-order {
+.footer__delete-order, .footer__create-product {
   margin-right: 20px;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
-.footer__delete-order p {
+.footer__create-product {
+  margin-right: 40px;
+}
+
+.footer p {
   font-size: 13px;
   color: var(--primary-white);
 }
@@ -27,6 +31,13 @@
   height: 30px;
   width: 30px;
   background: url("../../../img/delete-order.png") center center no-repeat no-repeat;
+  background-size: 60%;
+}
+
+.footer__button-create-product {
+  height: 30px;
+  width: 30px;
+  background: url("../../../img/create-order.png") center center no-repeat no-repeat;
   background-size: 60%;
 }
 

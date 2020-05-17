@@ -9,6 +9,7 @@ import { deleteOrder } from "./delete-order";
 import { createProduct } from "./create-product";
 import { createOrder } from "./create-order";
 import { showExistCustomers } from "./show-exist-customers";
+import { showExistProducts } from "./show-exist-products";
 import { getMarkupCreateProductForm } from "../html-markups/get-markup-create-product-form";
 import { getMarkupCreateOrderForm } from "../html-markups/get-markup-create-order-form";
 
@@ -18,8 +19,9 @@ export function addEventListeners() {
   const buttonBack = document.querySelector(".order-list__button-back");
   const headerButton = document.querySelector(".header__button");
   const footerDeleteOrderButton = document.querySelector(".footer__delete-order");
-  const buttonCreateProduct = document.querySelector(".order__line-items-button-create-product");
+  const buttonCreateProduct = document.querySelector(".footer__create-product");
   const buttonCreateOrder = document.querySelector(".order-list__footer-button-create-order");
+  const buttonAddProducts = document.querySelector(".order__line-items-button-add-products");
 
   const contentWrapper = document.querySelector(".content-wrapper");
   const orderList = document.querySelector(".order-list");
@@ -139,6 +141,14 @@ export function addEventListeners() {
     document.body.insertAdjacentHTML("beforeend", getMarkupCreateOrderForm());
   });
 
+  buttonAddProducts.addEventListener("click", () => {
+    document.querySelector(".content-wrapper").classList.add("content-wrapper--blurred");
+    document.body.classList.add("blocked");
+    window.scrollTo(0, 0); // Page up
+
+    showExistProducts();
+  });
+
   document.body.addEventListener("click", (e) => {
 
     function hiddenForm() {
@@ -159,7 +169,8 @@ export function addEventListeners() {
       createOrder();
       hiddenForm();
     }
-    else if (e.target.classList.contains("product-cancel-button") || 
+    else if (e.target.classList.contains("product-cancel-button") ||
+             e.target.classList.contains("add-products-cancel-button") ||
              e.target.classList.contains("order-cancel-button")) {
       hiddenForm();
     }  

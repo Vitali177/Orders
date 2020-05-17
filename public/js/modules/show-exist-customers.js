@@ -12,12 +12,12 @@ export function showExistCustomers() {
     
     const markup = `
     <div class="customers-header">
-      <li class="id">id</li>
-      <li class="firstName">firstName</li>
-      <li class="lastName">lastName</li>
-      <li class="address">address</li>
-      <li class="phone">phone</li>
-      <li class="email">email</li>
+      <li class="id">Id</li>
+      <li class="firstName">First Name</li>
+      <li class="lastName">Last Name</li>
+      <li class="address">Address</li>
+      <li class="phone">Phone</li>
+      <li class="email">Email</li>
     </div>
     <div class="customers-wrapper">
       ${markupCustomers}
