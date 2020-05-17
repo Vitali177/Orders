@@ -7,10 +7,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const dbConfig = {
-  server: "ORDERS-DB.mssql.somee.com",
-  user: "ASD177_SQLLogin_1",
-  password: "odrjub6dsv",
-  database: "ORDERS-DB",
+  server: "DESKTOP-9V3T2L9\\SQLEXPRESS01",
+  user: "test",
+  password: "123",
+  database: "ORDERS",
   port: 1433
 };
 
@@ -97,6 +97,21 @@ app.get("/api/Orders/:orderId/products", (req, res) => {
         const products = recordset["recordset"];
         products.forEach(item => Math.round(item.totalPrice = item.quantity * item.price));
         res.status(200).json(products);     
+      }
+    });
+  });
+});
+
+app.get("/api/Customers", (req, res) => {
+  const query = `SELECT * FROM CustomerInfo`;
+
+  sql.connect(dbConfig)
+  .then(pool => {
+    pool.query(query, (err, recordset) => {
+      if (err) {
+        handleError(err, res);            
+      } else {
+        res.status(200).json(recordset["recordset"]);        
       }
     });
   });
