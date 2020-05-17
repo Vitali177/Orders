@@ -7,10 +7,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const dbConfig = {
-  server: "DESKTOP-9V3T2L9\\SQLEXPRESS01",
-  user: "test",
-  password: "123",
-  database: "ORDERS",
+  server: "ORDERS-DB.mssql.somee.com",
+  user: "ASD177_SQLLogin_1",
+  password: "odrjub6dsv",
+  database: "ORDERS-DB",
   port: 1433
 };
 
@@ -117,13 +117,22 @@ app.get("/api/Customers", (req, res) => {
   });
 });
 
-app.post("/api/Orders", (req, res) => {
-  const { createdAt, shippedAt, status, ZIP, region, country, firstName, lastName, address, phone, email } = req.body;
-  const query = `INSERT INTO CustomerInfo (firstName, lastName, address, phone, email) VALUES
-  ('${firstName}', '${lastName}', '${address}', '${phone}', '${email}')
-  
-  INSERT INTO OrderInfo (customerId, createdAt, status, shippedAt, ZIP, region, country) VALUES
-  ((SELECT MAX(id) FROM CustomerInfo), '${createdAt}', '${status}', '${shippedAt}', '${ZIP}', '${region}', '${country}')`;
+app.post("/api/Orders", (req, res) => {  
+  const { createdAt, shippedAt, status, ZIP, region, country } = req.body;
+  let query;
+
+  if (req.body.customerId) {
+    query = `INSERT INTO OrderInfo (customerId, createdAt, status, shippedAt, ZIP, region, country) VALUES
+    (${req.body.customerId}, '${createdAt}', '${status}', '${shippedAt}', '${ZIP}', '${region}', '${country}')`;
+  } else {
+    const { firstName, lastName, address, phone, email } = req.body;
+
+    query = `INSERT INTO CustomerInfo (firstName, lastName, address, phone, email) VALUES
+    ('${firstName}', '${lastName}', '${address}', '${phone}', '${email}')
+    
+    INSERT INTO OrderInfo (customerId, createdAt, status, shippedAt, ZIP, region, country) VALUES
+    ((SELECT MAX(id) FROM CustomerInfo), '${createdAt}', '${status}', '${shippedAt}', '${ZIP}', '${region}', '${country}')`;
+  }
 
   sql.connect(dbConfig)
   .then(pool => {

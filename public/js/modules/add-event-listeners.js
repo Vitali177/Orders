@@ -8,6 +8,7 @@ import { deleteProduct } from "./delete-product";
 import { deleteOrder } from "./delete-order"; 
 import { createProduct } from "./create-product";
 import { createOrder } from "./create-order";
+import { showExistCustomers } from "./show-exist-customers";
 import { getMarkupCreateProductForm } from "../html-markups/get-markup-create-product-form";
 import { getMarkupCreateOrderForm } from "../html-markups/get-markup-create-order-form";
 
@@ -161,6 +162,12 @@ export function addEventListeners() {
     else if (e.target.classList.contains("product-cancel-button") || 
              e.target.classList.contains("order-cancel-button")) {
       hiddenForm();
-    }     
-  });
+    }  
+    
+    if (e.target.classList.contains("exist-customers")) {
+      e.preventDefault();
+      document.querySelector(".exist-customers").classList.add("exist-customers--active");
+      showExistCustomers();
+    }
+  });  
 }

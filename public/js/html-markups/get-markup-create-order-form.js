@@ -17,12 +17,14 @@ export function getMarkupCreateOrderForm() {
         <input type="text" class="ZIP" placeholder="ZIP">
         <input type="text" class="region" placeholder="Region">
         <input type="text" class="country" placeholder="Country">
-        <h4>Customer Info</h4>
-        <input type="text" class="firstName" placeholder="First name">
-        <input type="text" class="lastName" placeholder="Last name">
-        <input type="text" class="customer-address" placeholder="Address">
-        <input type="text" class="phone" placeholder="Phone">
-        <input type="text" class="email" placeholder="Email">
+        <h4>Customer Info <button class="exist-customers">Select an existing customer</button></h4>
+        <div class="customers-info">
+          <input type="text" class="firstName" placeholder="First name">
+          <input type="text" class="lastName" placeholder="Last name">
+          <input type="text" class="customer-address" placeholder="Address">
+          <input type="text" class="phone" placeholder="Phone">
+          <input type="text" class="email" placeholder="Email">
+        </div>
         <input type="submit" class="submit-create-order" value="Create Order">
       </form>     
       <div class="order-cancel-button cancel-button"></div> 

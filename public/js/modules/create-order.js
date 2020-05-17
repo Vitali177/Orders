@@ -7,17 +7,22 @@ export async function createOrder() {
   const ZIP = document.querySelector(".create-order-form .ZIP").value;
   const region = document.querySelector(".create-order-form .region").value;
   const country = document.querySelector(".create-order-form .country").value;
-  const firstName = document.querySelector(".create-order-form .firstName").value;
-  const lastName = document.querySelector(".create-order-form .lastName").value;
-  const address = document.querySelector(".create-order-form .customer-address").value;
-  const phone = document.querySelector(".create-order-form .phone").value;
-  const email = document.querySelector(".create-order-form .email").value;
+  const firstName = document.querySelector(".create-order-form .firstName")?.value;
+  const lastName = document.querySelector(".create-order-form .lastName")?.value;
+  const address = document.querySelector(".create-order-form .customer-address")?.value;
+  const phone = document.querySelector(".create-order-form .phone")?.value;
+  const email = document.querySelector(".create-order-form .email")?.value;
+  const url = `${window.location.origin}/api/Orders`;
 
-  const order = {
+  let order = {
     createdAt, shippedAt, status, ZIP, region, country,
     firstName, lastName, address, phone, email
-  };
-  const url = `${window.location.origin}/api/Orders`;
+  }
+
+  if (document.querySelector(".exist-customers--active")) {
+    const customerId = document.querySelector("input[type='radio']:checked").value;
+    order = { customerId, createdAt, shippedAt, status, ZIP, region, country };
+  }
 
   fetch(url, {
     method: "POST",
