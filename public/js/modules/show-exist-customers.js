@@ -24,5 +24,7 @@ export function showExistCustomers() {
     </div>`;
 
     customerInfo.innerHTML = markup;
+    // default selected customer
+    document.querySelector("input[type='radio']").checked = true;
   });  
 }
