@@ -239,7 +239,7 @@ app.put("/api/Orders/:orderId", (req, res) => {
     WHERE id = ${orderId}
     
     UPDATE CustomerInfo SET
-    firstName = '${order.firstName}', address = '${order.address}'
+    address = '${order.address}'
     WHERE id = (SELECT customerId FROM OrderInfo WHERE id = ${orderId})`;
   } else { // customer info
     query = `UPDATE CustomerInfo SET
