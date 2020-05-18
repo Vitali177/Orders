@@ -2,6 +2,11 @@ import { getMarkupOrderProduct } from "../html-markups/get-markup-order-product"
 
 export async function addProducts() {
   const selectedInputs = document.querySelectorAll("input[type='checkbox']:checked");
+  
+  if (!selectedInputs.length) {
+    return;
+  }
+
   const ids = [...selectedInputs].map(input => input.value);
   const quantities = [...selectedInputs].map(input => input.parentNode.querySelector("li.quantity input").value);
 
@@ -37,7 +42,7 @@ export async function addProducts() {
     products.forEach(product => markup += getMarkupOrderProduct(product));
 
     orderLineList.innerHTML += markup;
-    numberLineItems.innerHTML += products.length;
+    numberLineItems.innerHTML = +numberLineItems.innerHTML + products.length;
     orderCost.innerHTML =  (+orderCost.innerHTML + productsTotalCost).toFixed(2);
   });  
 }
