@@ -210,7 +210,9 @@ app.post("/api/OrderProducts/:orderId", (req, res) => {
         INNER JOIN OrdersProducts ON ProductInfo.id = OrdersProducts.productId
         WHERE OrdersProducts.orderId = ${orderId} AND (`;
         
-        products.forEach(product => queryProduct += ` ProductInfo.id = ${product.id} OR`);
+        products.forEach(product => {
+          queryProduct += ` (ProductInfo.id = ${product.id} AND OrdersProducts.quantity = ${product.quantity}) OR`;
+        });
         queryProduct = `${queryProduct.slice(0, -2)})`; // remove last comma and close brace
 
         pool.query(queryProduct, (err, recordset) => {
@@ -285,10 +287,11 @@ app.put("/api/Orders/:orderId", (req, res) => {
 
 app.delete("/api/Orders/:orderId", (req, res) => {
   const { orderId } = req.params;
+  const query = `DELETE FROM OrderInfo WHERE id = ${orderId}`;
 
   sql.connect(dbConfig)
   .then(pool => {
-    pool.query(`DELETE FROM OrderInfo WHERE id = ${orderId}`, (err, recordset) => {
+    pool.query(query, (err, recordset) => {
       if (err) {
         handleError(err, res);            
       } else {
@@ -304,11 +307,14 @@ app.delete("/api/Orders/:orderId", (req, res) => {
 
 app.delete("/api/OrderProducts/:orderId/:productId", (req, res) => {
   const { orderId, productId } = req.params;
+  const { quantity } = req.query;
+
+  const query = `DELETE FROM OrdersProducts WHERE (orderId = ${orderId})
+  AND (productId = ${productId}) AND (quantity = ${quantity})`;
 
   sql.connect(dbConfig)
   .then(pool => {
-    pool.query(`DELETE FROM OrdersProducts 
-    WHERE (orderId = ${orderId}) AND (productId = ${productId})`, (err, recordset) => {
+    pool.query(query, (err, recordset) => {
       if (err) {
         handleError(err, res);            
       } else {

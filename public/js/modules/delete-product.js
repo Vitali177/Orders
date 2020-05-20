@@ -11,6 +11,7 @@ export function deleteProduct(button) {
 
   const productId = product.querySelector(".id").innerHTML;
   const productCost = product.querySelector(".total .value").innerHTML;
+  const quantity = product.querySelector(".quantity .value").innerHTML;
 
   wrapperOfProducts.removeChild(product);
   numberOfProducts.innerHTML--;
@@ -21,6 +22,6 @@ export function deleteProduct(button) {
     wrapperOfProducts.innerHTML = `<div class="no-products">Products not found</div>`;
   }
 
-  const url = `${window.location.origin}/api/OrderProducts/${orderId}/${productId}`;  
+  const url = `${window.location.origin}/api/OrderProducts/${orderId}/${productId}?quantity=${quantity}`;  
   fetch(url, {method: "DELETE", mode: 'cors', cache: 'no-cache', credentials: 'same-origin'});
 }
