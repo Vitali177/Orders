@@ -52,6 +52,7 @@ export function showDetailsOrder(id) {
 
     fetch(url)
       .then(res => res.json())
-      .then(data => generateYandexMap(data.results[0].geometry.lat, data.results[0].geometry.lng));    
+      .then(data => generateYandexMap(data.results[0].geometry.lat, data.results[0].geometry.lng))
+      .catch(err => document.querySelector("#map").innerHTML = `<div class="no-map">Region of the shipping address is not found</div>`);
   }
 }
