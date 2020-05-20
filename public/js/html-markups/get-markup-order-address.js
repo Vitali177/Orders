@@ -15,7 +15,7 @@ export function getMarkupOrderAddress(order) {
       </div>
       <div class="box">
         <li class="order__address-item">Region:</li>
-        <input type="text" class="region order-input-region" value="${order.region}" readonly>
+        <input type="text" class="region" value="${order.region}" readonly>
       </div>
       <div class="box">
         <li class="order__address-item">Country:</li>

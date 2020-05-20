@@ -45,14 +45,16 @@ export function showDetailsOrder(id) {
     });
 
   function displayMap() {
-    const region = document.querySelector(".order-input-region").value;
+    const address = document.querySelector("input.address").value;
+    const region = document.querySelector("input.region").value;
+    const country = document.querySelector("input.country").value;
     const queryApi = 'https://api.opencagedata.com/geocode/v1/json?';
-    const accessKey = `q=${region}&key=ddc1c7bc04434a968ca2655d83467aee&pretty=1&no_annotations=1&language=en`;
+    const accessKey = `q=${address},${region},${country}&key=ddc1c7bc04434a968ca2655d83467aee&pretty=1&no_annotations=1&language=en`;
     const url = queryApi + accessKey;
 
     fetch(url)
       .then(res => res.json())
       .then(data => generateYandexMap(data.results[0].geometry.lat, data.results[0].geometry.lng))
-      .catch(err => document.querySelector("#map").innerHTML = `<div class="no-map">Region of the shipping address is not found</div>`);
+      .catch(err => document.querySelector("#map").innerHTML = `<div class="no-map">Region and street of the shipping address is not found</div>`);
   }
 }
