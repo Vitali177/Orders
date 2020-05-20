@@ -29,7 +29,6 @@ export async function addProducts() {
   })
   .then(res => res.json())
   .then(products => {
-    console.log(products);
     const numberLineItems = document.querySelector(".order__line-items-heading span");
     const orderLineList = document.querySelector(".order__line-list .wrapper");
     const orderCost = document.querySelector(".order__cost-value");
