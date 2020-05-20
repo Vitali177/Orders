@@ -182,8 +182,8 @@
   cursor: pointer;
 }
 
-.order-list__footer-button-create-order:hover {
-  animation: plus .7s infinite;
+.plus-animation:hover {
+  animation: plus .7s;
 }
 
 @keyframes plus {

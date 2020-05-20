@@ -304,19 +304,6 @@ input.is-modify:focus {
   cursor: pointer;
 }
 
-.order__line-items-button-add-products:hover {
-  animation: plus .7s infinite;
-}
-
-@keyframes plus {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .order__line-items-input-search {
   width: 275px;
   padding: 0 60px 0 10px;
