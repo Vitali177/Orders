@@ -47,12 +47,15 @@ export function addEventListeners() {
     contentWrapper.classList.add("content-wrapper--menu-hidden");
     headerButton.classList.remove("header__button--hidden");
     orderList.classList.add("order-list--hidden");
+    document.body.classList.remove("blocked");
   });
 
   headerButton.addEventListener("click", () => {
     contentWrapper.classList.remove("content-wrapper--menu-hidden");
     headerButton.classList.add("header__button--hidden");
     orderList.classList.remove("order-list--hidden");
+    // fix bug on mobile devices when appear scrolling on the main content of the order, but not on the menu
+    document.body.classList.add("blocked");
   });
 
   orderItemsMain.addEventListener("click", (e) => {
