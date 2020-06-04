@@ -6,13 +6,17 @@ import { getMarkupOrderProduct } from "../html-markups/get-markup-order-product"
 import { generateYandexMap } from "./generate-yandex-map";
 
 export function showDetailsOrder(id) {  
-  const sectionMainInfo = document.querySelector("section.order__main-info .wrapper");
+  const sectionMainInfo = document.querySelector("section.order__main-info > .wrapper");
   const sectionOrderAddress = document.querySelector("section.order__address");
   const sectionOrderProcessor = document.querySelector("section.order__processor");
   const sectionOrderMap = document.querySelector("section.order__map");
-  const sectionOrderLineItems = document.querySelector("section.order__line-items .wrapper");
+  const sectionOrderLineItems = document.querySelector(".order__line-list > .wrapper");
   const numberLineItems = document.querySelector(".order__line-items-heading span");
+  const tabSelected = document.querySelector(".tab--selected");
   
+  [sectionMainInfo, tabSelected, sectionOrderLineItems]
+    .forEach(block => block.innerHTML = `<div class="preloader"></div>`);
+
   const url = `${window.location.origin}/api/Orders/${id}`;  
   const urlProducts = `${window.location.origin}/api/Orders/${id}/products`; 
 

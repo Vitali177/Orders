@@ -6,6 +6,8 @@ export async function createMarkupAllOrdersInList() {
   let markup = "";
   const url = `${window.location.origin}/api/Orders`;
 
+  orderListMain.innerHTML = `<div class="preloader"></div>`;
+
   const res = await fetch(url);
   const data = await res.json();
   await (() => {
